@@ -81,23 +81,23 @@
       <div class="max-w-7xl mx-auto px-4 sm:px-6 flex overflow-x-auto no-scrollbar">
         <button onclick="switchStation(1)" id="tab-btn-1" class="station-tab flex items-center gap-2.5 px-4 py-3 text-xs sm:text-sm font-semibold border-b-2 border-sky-400 text-sky-400 bg-slate-900/80 whitespace-nowrap transition-all">
           <span class="w-5 h-5 rounded-full bg-sky-500/20 border border-sky-400 flex items-center justify-center text-xs font-mono-code" id="tab-dot-1">1</span>
-          <span>Station 1: Corner Math</span>
+          <span>Question 1: Corner Math</span>
         </button>
         <button onclick="switchStation(2)" id="tab-btn-2" class="station-tab flex items-center gap-2.5 px-4 py-3 text-xs sm:text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
           <span class="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-mono-code" id="tab-dot-2">2</span>
-          <span>Station 2: Paint State Flow</span>
+          <span>Question 2: Paint State Flow</span>
         </button>
         <button onclick="switchStation(3)" id="tab-btn-3" class="station-tab flex items-center gap-2.5 px-4 py-3 text-xs sm:text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
           <span class="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-mono-code" id="tab-dot-3">3</span>
-          <span>Station 3: Polygon Vertices</span>
+          <span>Question 3: Polygon Vertices</span>
         </button>
         <button onclick="switchStation(4)" id="tab-btn-4" class="station-tab flex items-center gap-2.5 px-4 py-3 text-xs sm:text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
           <span class="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-mono-code" id="tab-dot-4">4</span>
-          <span>Station 4: Scope &amp; 60-FPS Bug</span>
+          <span>Question 4: Scope &amp; 60-FPS Bug</span>
         </button>
         <button onclick="switchStation(5)" id="tab-btn-5" class="station-tab flex items-center gap-2.5 px-4 py-3 text-xs sm:text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
           <span class="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-mono-code" id="tab-dot-5">5</span>
-          <span>Station 5: Relative Math Offsets</span>
+          <span>Question 5: Relative Math Offsets</span>
         </button>
       </div>
     </div>
@@ -674,7 +674,7 @@
           <button id="prevStationBtn" onclick="navigateStation(-1)" class="px-3.5 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 text-xs font-bold text-slate-700 flex items-center gap-1.5 transition disabled:opacity-40">
             <i class="fa-solid fa-arrow-left"></i> Previous Question
           </button>
-          <span id="stationFooterLabel" class="text-xs font-bold text-slate-500 uppercase tracking-wider">Station 1 of 5</span>
+          <span id="stationFooterLabel" class="text-xs font-bold text-slate-500 uppercase tracking-wider">Question 1 of 5</span>
           <button id="nextStationBtn" onclick="navigateStation(1)" class="px-3.5 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-xs font-bold text-white flex items-center gap-1.5 shadow-sm transition">
             Next Question <i class="fa-solid fa-arrow-right"></i>
           </button>
@@ -692,13 +692,13 @@
     let currentStation = 1;
     const stationVerified = { 1: false, 2: false, 3: false, 4: false, 5: false };
 
-    // Station 1 State: rect(x, y, 60, 60)
+    // Question 1 State: rect(x, y, 60, 60)
     let s1 = { x: 400, y: 400, w: 60, h: 60 };
 
-    // Station 2 State: Line debugger (1..5)
+    // Question 2 State: Line debugger (1..5)
     let s2 = { step: 5 };
 
-    // Station 3 State: Vertex order after Point 1
+    // Question 3 State: Vertex order after Point 1
     const s3Points = {
       1: { x: 200, y: 50,  label: "Point 1: Top Tip (200, 50)" },
       2: { x: 200, y: 250, label: "Point 2: Bottom Tip (200, 250)" },
