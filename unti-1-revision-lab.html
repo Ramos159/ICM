@@ -1,0 +1,1486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gotham Tech High School — Unit 1 Interactive Test Revision & Discovery Lab</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #f8fafc;
+      color: #0f172a;
+    }
+    .font-display {
+      font-family: 'Space Grotesk', sans-serif;
+    }
+    .font-mono-code {
+      font-family: 'Fira Code', monospace;
+    }
+    .code-line-highlight {
+      background-color: rgba(56, 189, 248, 0.22);
+      border-left: 3px solid #38bdf8;
+    }
+    canvas {
+      image-rendering: crisp-edges;
+      cursor: crosshair;
+    }
+    /* Custom subtle scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #94a3b8;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col">
+
+  <!-- TOP NAVIGATION & BRANDING HEADER -->
+  <header class="bg-slate-900 text-white border-b border-slate-800 sticky top-0 z-30 shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex flex-wrap items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <div class="w-10 h-10 rounded-lg bg-sky-500 flex items-center justify-center text-slate-950 font-bold text-xl shadow-sm">
+          <i class="fa-solid fa-code"></i>
+        </div>
+        <div>
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold uppercase tracking-wider text-sky-400 font-display">Gotham Tech High School • Intro to Computational Media (JS)</span>
+            <span class="bg-slate-800 text-slate-300 text-[11px] font-semibold px-2 py-0.5 rounded border border-slate-700">Peer Revision Edition</span>
+          </div>
+          <h1 class="text-lg sm:text-xl font-bold tracking-tight font-display text-white">
+            Unit 1 Interactive Test Revision &amp; Discovery Lab
+          </h1>
+        </div>
+      </div>
+
+      <!-- Partner Names & Progress Tracker -->
+      <div class="flex flex-wrap items-center gap-3">
+        <div class="flex items-center bg-slate-800/90 border border-slate-700 rounded-lg px-3 py-1.5 text-xs">
+          <i class="fa-solid fa-user-group text-sky-400 mr-2"></i>
+          <span class="text-slate-400 font-medium mr-2">Partners:</span>
+          <input id="partnerNamesInput" type="text" placeholder="Type Partner 1 & Partner 2 Names..." class="bg-transparent text-white placeholder-slate-500 focus:outline-none w-52 sm:w-60 font-medium">
+        </div>
+
+        <div class="flex items-center gap-2 bg-slate-800/90 border border-slate-700 rounded-lg px-3 py-1.5">
+          <span class="text-xs font-semibold text-slate-300">Lab Verified:</span>
+          <span id="verifiedCounterBadge" class="bg-sky-500/20 text-sky-300 border border-sky-500/40 font-mono-code text-xs font-bold px-2 py-0.5 rounded">0 / 5</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- STATION TABS BAR -->
+    <div class="bg-slate-950/80 border-t border-slate-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 flex overflow-x-auto no-scrollbar">
+        <button onclick="switchStation(1)" id="tab-btn-1" class="station-tab flex items-center gap-2.5 px-4 py-3 text-xs sm:text-sm font-semibold border-b-2 border-sky-400 text-sky-400 bg-slate-900/80 whitespace-nowrap transition-all">
+          <span class="w-5 h-5 rounded-full bg-sky-500/20 border border-sky-400 flex items-center justify-center text-xs font-mono-code" id="tab-dot-1">1</span>
+          <span>Station 1: Corner Math</span>
+        </button>
+        <button onclick="switchStation(2)" id="tab-btn-2" class="station-tab flex items-center gap-2.5 px-4 py-3 text-xs sm:text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
+          <span class="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-mono-code" id="tab-dot-2">2</span>
+          <span>Station 2: Paint State Flow</span>
+        </button>
+        <button onclick="switchStation(3)" id="tab-btn-3" class="station-tab flex items-center gap-2.5 px-4 py-3 text-xs sm:text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
+          <span class="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-mono-code" id="tab-dot-3">3</span>
+          <span>Station 3: Polygon Vertices</span>
+        </button>
+        <button onclick="switchStation(4)" id="tab-btn-4" class="station-tab flex items-center gap-2.5 px-4 py-3 text-xs sm:text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
+          <span class="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-mono-code" id="tab-dot-4">4</span>
+          <span>Station 4: Scope &amp; 60-FPS Bug</span>
+        </button>
+        <button onclick="switchStation(5)" id="tab-btn-5" class="station-tab flex items-center gap-2.5 px-4 py-3 text-xs sm:text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all">
+          <span class="w-5 h-5 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center text-xs font-mono-code" id="tab-dot-5">5</span>
+          <span>Station 5: Relative Math Offsets</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN SPLIT-SCREEN WORKSPACE -->
+  <main class="flex-grow max-w-7xl w-full mx-auto px-4 sm:px-6 py-6">
+    <!-- Top Instruction Banner -->
+    <div class="mb-5 bg-sky-50 border border-sky-200 rounded-xl p-3.5 flex flex-wrap items-center justify-between gap-3">
+      <div class="flex items-center gap-3">
+        <span class="w-8 h-8 rounded-lg bg-sky-600 text-white flex items-center justify-center flex-shrink-0">
+          <i class="fa-solid fa-compass-drafting"></i>
+        </span>
+        <p class="text-xs sm:text-sm text-slate-700">
+          <strong class="font-bold text-slate-900">How to Use This Revision Lab:</strong> Work with your partner through Stations 1–5. Manipulate the code controls on the left, observe the live <code class="font-mono-code bg-white px-1.5 py-0.5 rounded border border-sky-200 text-sky-800 font-semibold">400 x 400</code> canvas proof on the right, and write your verified answers on your paper exam.
+        </p>
+      </div>
+      <div id="copyToast" class="hidden bg-emerald-600 text-white text-xs font-bold px-3 py-1.5 rounded-lg shadow-sm flex items-center gap-1.5">
+        <i class="fa-solid fa-check"></i> Code Copied for p5.js Web Editor!
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+
+      <!-- ================================================================== -->
+      <!-- LEFT COLUMN (7 COLS): EXAM CHALLENGE, CODE LAB & PAPER CHECKPOINT -->
+      <!-- ================================================================== -->
+      <div class="lg:col-span-7 space-y-5">
+
+        <!-- ==================== STATION 1 CONTENT ==================== -->
+        <div id="station-panel-1" class="station-panel space-y-5">
+          <!-- 1. Exam Challenge Card -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-sky-600 font-display">Exam Question 1 • 20 Points</span>
+              <span class="text-xs font-medium bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full">Canvas Coordinates &amp; Corner Placement</span>
+            </div>
+            <h2 class="text-lg font-bold text-slate-900 mb-2">Positioning a 60×60 Square Flush in the Bottom-Right Corner</h2>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              On a standard <code class="font-mono-code text-xs bg-slate-100 px-1.5 py-0.5 rounded font-semibold">400 x 400</code> canvas using default <code class="font-mono-code text-xs bg-slate-100 px-1.5 py-0.5 rounded font-semibold">rectMode(CORNER)</code>, the first two numbers inside <code class="font-mono-code text-xs bg-slate-100 px-1.5 py-0.5 rounded font-semibold">rect(x, y, w, h)</code> control the square's <strong>top-left anchor corner</strong>—not its center or bottom-right!
+            </p>
+          </div>
+
+          <!-- 2. Interactive Code Lab -->
+          <div class="bg-slate-900 rounded-xl border border-slate-800 shadow-md overflow-hidden">
+            <div class="bg-slate-950 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
+              <div class="flex items-center gap-2">
+                <span class="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-amber-400"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                <span class="text-xs font-mono-code text-slate-400 ml-2">sketch.js — Interactive Coordinate Tester</span>
+              </div>
+              <button onclick="copyStationCode(1)" class="text-xs bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 px-2.5 py-1 rounded flex items-center gap-1.5 transition">
+                <i class="fa-regular fa-copy"></i> Copy for p5.js Editor
+              </button>
+            </div>
+
+            <div class="p-5 font-mono-code text-sm text-slate-200 space-y-1.5 leading-relaxed">
+              <div><span class="text-sky-400">function</span> <span class="text-amber-300">setup</span>() { <span class="text-sky-300">createCanvas</span>(<span class="text-purple-300">400</span>, <span class="text-purple-300">400</span>); }</div>
+              <div><span class="text-sky-400">function</span> <span class="text-amber-300">draw</span>() {</div>
+              <div class="pl-4"><span class="text-sky-300">background</span>(<span class="text-purple-300">220</span>);</div>
+              <div class="pl-4 text-slate-400">// Adjust X and Y below so the 60x60 square sits flush inside (400, 400):</div>
+              <div class="pl-4 flex flex-wrap items-center gap-1.5 bg-slate-800/90 p-2.5 rounded-lg border border-slate-700">
+                <span class="text-sky-300 font-bold">rect</span>(
+                <input id="s1-x-input" type="number" min="0" max="400" step="10" value="400" oninput="updateStation1FromInputs()" class="w-20 bg-slate-950 text-amber-300 font-bold border border-sky-500/60 rounded px-2 py-1 text-center focus:outline-none focus:ring-2 focus:ring-sky-400">,
+                <input id="s1-y-input" type="number" min="0" max="400" step="10" value="400" oninput="updateStation1FromInputs()" class="w-20 bg-slate-950 text-amber-300 font-bold border border-sky-500/60 rounded px-2 py-1 text-center focus:outline-none focus:ring-2 focus:ring-sky-400">,
+                <span class="text-purple-300 font-bold">60</span>,
+                <span class="text-purple-300 font-bold">60</span> );
+              </div>
+              <div>}</div>
+            </div>
+
+            <!-- Interactive Sliders & Quick Preset Buttons -->
+            <div class="bg-slate-800/70 px-5 py-4 border-t border-slate-800 space-y-3">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <div class="flex justify-between text-xs font-semibold text-slate-300 mb-1">
+                    <span>Top-Left X Coordinate:</span>
+                    <span id="s1-x-readout" class="font-mono-code text-amber-300">X = 400 (Right Edge = 460)</span>
+                  </div>
+                  <input id="s1-x-slider" type="range" min="0" max="400" step="5" value="400" oninput="syncStation1Sliders()" class="w-full accent-sky-400 cursor-pointer">
+                </div>
+                <div>
+                  <div class="flex justify-between text-xs font-semibold text-slate-300 mb-1">
+                    <span>Top-Left Y Coordinate:</span>
+                    <span id="s1-y-readout" class="font-mono-code text-amber-300">Y = 400 (Bottom Edge = 460)</span>
+                  </div>
+                  <input id="s1-y-slider" type="range" min="0" max="400" step="5" value="400" oninput="syncStation1Sliders()" class="w-full accent-sky-400 cursor-pointer">
+                </div>
+              </div>
+
+              <div class="flex flex-wrap items-center gap-2 pt-1">
+                <span class="text-xs text-slate-400 font-medium">Quick Test Presets:</span>
+                <button onclick="setStation1Coords(400, 400)" class="text-xs bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 px-2.5 py-1 rounded transition">
+                  Test (400, 400) — Why does it vanish?
+                </button>
+                <button onclick="setStation1Coords(200, 200)" class="text-xs bg-slate-700 hover:bg-slate-600 text-slate-200 px-2.5 py-1 rounded transition">
+                  Test Center (200, 200)
+                </button>
+                <button onclick="setStation1Coords(340, 340)" class="text-xs bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded font-semibold transition">
+                  Test 400 - 60 = (340, 340)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Guided Lab Instructions -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800 mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-sky-600"></i> Partner Discovery Steps
+            </h3>
+            <ol class="text-sm text-slate-700 space-y-2 list-decimal list-inside">
+              <li>Look at the canvas when <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">X = 400, Y = 400</code>. Because <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">rect()</code> draws <strong>60px rightward</strong> and <strong>60px downward</strong> from <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">(400, 400)</code>, the square is pushed completely off the bottom-right edge!</li>
+              <li>To make the square's right edge stop at <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">400</code>, subtract the square's width (<code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">60</code>) from the canvas width (<code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">400</code>).</li>
+              <li>Drag both sliders to that result until the canvas badge turns <strong>Green (Flush!)</strong>.</li>
+            </ol>
+          </div>
+
+          <!-- 4. Paper Test Checkpoint -->
+          <div class="bg-amber-50/90 rounded-xl border-2 border-amber-300 p-5">
+            <div class="flex items-center gap-2 text-amber-900 font-bold text-sm mb-2">
+              <i class="fa-solid fa-pen-to-square text-amber-600 text-base"></i>
+              <span>PAPER EXAM CHECKPOINT — Question 1 (Page 1)</span>
+            </div>
+            <div class="text-xs sm:text-sm text-amber-950 space-y-2">
+              <p><strong>Part (a) [10 Pts]:</strong> Write the exact subtraction after <code class="font-mono-code bg-white px-1.5 py-0.5 rounded border border-amber-300">X = 400 ...</code> and <code class="font-mono-code bg-white px-1.5 py-0.5 rounded border border-amber-300">Y = 400 ...</code> showing how you subtracted the square's width/height (<code class="font-mono-code">60</code>) to get the top-left coordinate.</p>
+              <p><strong>Part (b) [10 Pts]:</strong> Write the complete 4-argument command: <code class="font-mono-code bg-white px-1.5 py-0.5 rounded border border-amber-300">rect(____, ____, 60, 60);</code> using your discovered X and Y values.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== STATION 2 CONTENT ==================== -->
+        <div id="station-panel-2" class="station-panel hidden space-y-5">
+          <!-- 1. Exam Challenge Card -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-sky-600 font-display">Exam Question 2 • 20 Points</span>
+              <span class="text-xs font-medium bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full">Sequential State Machine &amp; Fill Persistence</span>
+            </div>
+            <h2 class="text-lg font-bold text-slate-900 mb-2">Why Does a Shape Keep an Earlier Color?</h2>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              p5.js works like a <strong>state machine</strong> (holding an active paintbrush). Once you dip the brush into a <code class="font-mono-code text-xs bg-slate-100 px-1.5 py-0.5 rounded font-semibold">fill()</code> or <code class="font-mono-code text-xs bg-slate-100 px-1.5 py-0.5 rounded font-semibold">stroke()</code> color, p5.js keeps using that exact setting for every shape below it until a new command changes it.
+            </p>
+          </div>
+
+          <!-- 2. Interactive Code Lab -->
+          <div class="bg-slate-900 rounded-xl border border-slate-800 shadow-md overflow-hidden">
+            <div class="bg-slate-950 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
+              <span class="text-xs font-mono-code text-slate-400">sketch.js — Line-by-Line Paintbrush State Debugger</span>
+              <button onclick="copyStationCode(2)" class="text-xs bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 px-2.5 py-1 rounded flex items-center gap-1.5 transition">
+                <i class="fa-regular fa-copy"></i> Copy for p5.js Editor
+              </button>
+            </div>
+
+            <div class="p-5 font-mono-code text-sm text-slate-200 space-y-1">
+              <div class="text-slate-400 mb-1">// Step through Lines 1 to 5 to inspect the Active Paintbrush:</div>
+              <div id="s2-line-1" class="px-3 py-1.5 rounded transition cursor-pointer" onclick="setStation2Step(1)">
+                <span class="text-slate-500 mr-3 select-none">1</span><span class="text-sky-300">fill</span>(<span class="text-rose-400 font-bold">255, 0, 0</span>); <span class="text-slate-400 text-xs">// Pure Red interior paint</span>
+              </div>
+              <div id="s2-line-2" class="px-3 py-1.5 rounded transition cursor-pointer" onclick="setStation2Step(2)">
+                <span class="text-slate-500 mr-3 select-none">2</span><span class="text-sky-300">rect</span>(<span class="text-purple-300">50, 50, 100, 100</span>);
+              </div>
+              <div id="s2-line-3" class="px-3 py-1.5 rounded transition cursor-pointer" onclick="setStation2Step(3)">
+                <span class="text-slate-500 mr-3 select-none">3</span><span class="text-sky-300">stroke</span>(<span class="text-sky-400 font-bold">0, 0, 255</span>); <span class="text-slate-400 text-xs">// Pure Blue border pen</span>
+              </div>
+              <div id="s2-line-4" class="px-3 py-1.5 rounded transition cursor-pointer" onclick="setStation2Step(4)">
+                <span class="text-slate-500 mr-3 select-none">4</span><span class="text-sky-300">strokeWeight</span>(<span class="text-purple-300 font-bold">4</span>); <span class="text-slate-400 text-xs">// 4px thick border</span>
+              </div>
+              <div id="s2-line-5" class="px-3 py-1.5 rounded transition cursor-pointer" onclick="setStation2Step(5)">
+                <span class="text-slate-500 mr-3 select-none">5</span><span class="text-sky-300">circle</span>(<span class="text-purple-300">250, 100, 60</span>); <span class="text-amber-300 text-xs">// &lt;-- What fill &amp; stroke are active here?</span>
+              </div>
+            </div>
+
+            <!-- Active Paintbrush State Inspector -->
+            <div class="bg-slate-800/90 px-5 py-4 border-t border-slate-800 space-y-3">
+              <div class="flex flex-wrap items-center justify-between gap-2">
+                <div class="flex items-center gap-2">
+                  <button onclick="stepStation2(-1)" class="px-3 py-1.5 bg-slate-700 hover:bg-slate-600 text-white rounded text-xs font-semibold transition">
+                    <i class="fa-solid fa-backward-step mr-1"></i> Prev Line
+                  </button>
+                  <button onclick="stepStation2(1)" class="px-3 py-1.5 bg-sky-500 hover:bg-sky-400 text-slate-950 rounded text-xs font-bold transition">
+                    Next Line <i class="fa-solid fa-forward-step ml-1"></i>
+                  </button>
+                  <button onclick="setStation2Step(5)" class="px-3 py-1.5 bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 rounded text-xs font-semibold transition">
+                    Run All 5 Lines
+                  </button>
+                </div>
+                <span id="s2-step-badge" class="text-xs font-mono-code text-sky-300 bg-slate-900 px-2.5 py-1 rounded border border-slate-700">
+                  Executing Line 5 of 5
+                </span>
+              </div>
+
+              <!-- Live State Readout Cards -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                <div class="bg-slate-900 border border-slate-700 rounded-lg p-3 flex items-center gap-3">
+                  <div id="s2-fill-swatch" class="w-8 h-8 rounded-md border border-white/20 flex-shrink-0" style="background: rgb(255,0,0);"></div>
+                  <div>
+                    <div class="text-[11px] uppercase tracking-wider text-slate-400 font-bold">Active Interior Fill State</div>
+                    <div id="s2-fill-text" class="text-xs font-mono-code text-white font-semibold">RGB(255, 0, 0) — RED (Set on Line 1)</div>
+                  </div>
+                </div>
+                <div class="bg-slate-900 border border-slate-700 rounded-lg p-3 flex items-center gap-3">
+                  <div id="s2-stroke-swatch" class="w-8 h-8 rounded-md border-4 flex-shrink-0 bg-slate-950" style="border-color: rgb(0,0,255);"></div>
+                  <div>
+                    <div class="text-[11px] uppercase tracking-wider text-slate-400 font-bold">Active Border Stroke State</div>
+                    <div id="s2-stroke-text" class="text-xs font-mono-code text-white font-semibold">RGB(0, 0, 255) — BLUE, 4px (Lines 3–4)</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Guided Lab Instructions -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800 mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-sky-600"></i> Partner Discovery Steps
+            </h3>
+            <ol class="text-sm text-slate-700 space-y-2 list-decimal list-inside">
+              <li>Click <strong>Line 1</strong> and <strong>Line 2</strong>: Notice how <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">fill(255, 0, 0)</code> loads <strong>Red</strong> paint into p5.js's active fill state to draw the square.</li>
+              <li>Click <strong>Line 3</strong> and <strong>Line 4</strong>: Notice that changing <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">stroke(0, 0, 255)</code> and <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">strokeWeight(4)</code> changes the <strong>border outline pen</strong> to thick Blue, but <em>does not</em> erase or replace the active Red fill!</li>
+              <li>Click <strong>Line 5</strong>: Observe the circle drawn at <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">(250, 100)</code> and record both its interior fill and border outline on your paper test.</li>
+            </ol>
+          </div>
+
+          <!-- 4. Paper Test Checkpoint -->
+          <div class="bg-amber-50/90 rounded-xl border-2 border-amber-300 p-5">
+            <div class="flex items-center gap-2 text-amber-900 font-bold text-sm mb-2">
+              <i class="fa-solid fa-pen-to-square text-amber-600 text-base"></i>
+              <span>PAPER EXAM CHECKPOINT — Question 2 (Page 1)</span>
+            </div>
+            <div class="text-xs sm:text-sm text-amber-950 space-y-2">
+              <p><strong>Part (a) [10 Pts]:</strong> Write the circle's exact <strong>Interior Fill</strong> color and <strong>Border Outline</strong> color &amp; thickness.</p>
+              <p><strong>Part (b) [10 Pts]:</strong> Explain in a complete sentence that <code class="font-mono-code bg-white px-1 py-0.5 rounded border border-amber-300">fill(255, 0, 0)</code> stays active (persists) from Line 1 because no new <code class="font-mono-code bg-white px-1 py-0.5 rounded border border-amber-300">fill()</code> command was called before <code class="font-mono-code bg-white px-1 py-0.5 rounded border border-amber-300">circle()</code>.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== STATION 3 CONTENT ==================== -->
+        <div id="station-panel-3" class="station-panel hidden space-y-5">
+          <!-- 1. Exam Challenge Card -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-sky-600 font-display">Exam Question 3 • 20 Points</span>
+              <span class="text-xs font-medium bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full">Custom Vector Vertices &amp; Perimeter Ordering</span>
+            </div>
+            <h2 class="text-lg font-bold text-slate-900 mb-2">Fixing the Twisted "Hourglass / Bowtie" Polygon Bug</h2>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              When drawing a custom shape with <code class="font-mono-code text-xs bg-slate-100 px-1.5 py-0.5 rounded font-semibold">beginShape()</code> and <code class="font-mono-code text-xs bg-slate-100 px-1.5 py-0.5 rounded font-semibold">endShape(CLOSE)</code>, p5.js plays "connect-the-dots" in the exact order you list the <code class="font-mono-code text-xs bg-slate-100 px-1.5 py-0.5 rounded font-semibold">vertex(x, y)</code> commands.
+            </p>
+          </div>
+
+          <!-- 2. Interactive Code Lab -->
+          <div class="bg-slate-900 rounded-xl border border-slate-800 shadow-md overflow-hidden">
+            <div class="bg-slate-950 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
+              <span class="text-xs font-mono-code text-slate-400">sketch.js — Interactive Vertex Sequence Builder</span>
+              <button onclick="copyStationCode(3)" class="text-xs bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 px-2.5 py-1 rounded flex items-center gap-1.5 transition">
+                <i class="fa-regular fa-copy"></i> Copy for p5.js Editor
+              </button>
+            </div>
+
+            <div class="p-5 font-mono-code text-sm text-slate-200 space-y-2">
+              <div><span class="text-sky-300">beginShape</span>();</div>
+              <div class="pl-4 flex items-center gap-2 bg-slate-800/60 px-3 py-1.5 rounded border border-slate-700">
+                <span class="text-xs bg-sky-500 text-slate-950 font-bold px-1.5 py-0.5 rounded">Step 1</span>
+                <span>vertex(200, 50); <span class="text-sky-300">// Point 1: Top Tip (Fixed Start)</span></span>
+              </div>
+
+              <!-- Interactive Dropdowns for Steps 2, 3, 4 -->
+              <div class="pl-4 flex flex-wrap items-center gap-2 bg-slate-800/90 px-3 py-2 rounded border border-slate-700">
+                <span class="text-xs bg-amber-400 text-slate-950 font-bold px-1.5 py-0.5 rounded">Step 2</span>
+                <select id="s3-slot-2" onchange="updateStation3Sequence()" class="bg-slate-950 text-amber-300 border border-slate-600 rounded px-2.5 py-1 text-xs sm:text-sm font-mono-code focus:outline-none focus:border-sky-400">
+                  <option value="2" selected>Point 2: vertex(200, 250) — Bottom Tip</option>
+                  <option value="3">Point 3: vertex(280, 150) — Right Corner</option>
+                  <option value="4">Point 4: vertex(120, 150) — Left Corner</option>
+                </select>
+              </div>
+
+              <div class="pl-4 flex flex-wrap items-center gap-2 bg-slate-800/90 px-3 py-2 rounded border border-slate-700">
+                <span class="text-xs bg-amber-400 text-slate-950 font-bold px-1.5 py-0.5 rounded">Step 3</span>
+                <select id="s3-slot-3" onchange="updateStation3Sequence()" class="bg-slate-950 text-amber-300 border border-slate-600 rounded px-2.5 py-1 text-xs sm:text-sm font-mono-code focus:outline-none focus:border-sky-400">
+                  <option value="2">Point 2: vertex(200, 250) — Bottom Tip</option>
+                  <option value="3" selected>Point 3: vertex(280, 150) — Right Corner</option>
+                  <option value="4">Point 4: vertex(120, 150) — Left Corner</option>
+                </select>
+              </div>
+
+              <div class="pl-4 flex flex-wrap items-center gap-2 bg-slate-800/90 px-3 py-2 rounded border border-slate-700">
+                <span class="text-xs bg-amber-400 text-slate-950 font-bold px-1.5 py-0.5 rounded">Step 4</span>
+                <select id="s3-slot-4" onchange="updateStation3Sequence()" class="bg-slate-950 text-amber-300 border border-slate-600 rounded px-2.5 py-1 text-xs sm:text-sm font-mono-code focus:outline-none focus:border-sky-400">
+                  <option value="2">Point 2: vertex(200, 250) — Bottom Tip</option>
+                  <option value="3">Point 3: vertex(280, 150) — Right Corner</option>
+                  <option value="4" selected>Point 4: vertex(120, 150) — Left Corner</option>
+                </select>
+              </div>
+
+              <div><span class="text-sky-300">endShape</span>(<span class="text-purple-300">CLOSE</span>); <span class="text-slate-400 text-xs">// Connects Step 4 back to Point 1</span></div>
+            </div>
+
+            <div class="bg-slate-800/70 px-5 py-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+              <span class="text-xs text-slate-300">Current Path: <strong id="s3-path-readout" class="font-mono-code text-amber-300">Point 1 → Point 2 → Point 3 → Point 4 → CLOSE</strong></span>
+              <div class="flex gap-2">
+                <button onclick="setStation3Preset(2, 3, 4)" class="text-xs bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 px-2.5 py-1 rounded transition">
+                  Reset to Exam Bug (Bowtie)
+                </button>
+                <button onclick="setStation3Preset(3, 2, 4)" class="text-xs bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded font-semibold transition">
+                  Test Clockwise Order
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Guided Lab Instructions -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800 mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-sky-600"></i> Partner Discovery Steps
+            </h3>
+            <ol class="text-sm text-slate-700 space-y-2 list-decimal list-inside">
+              <li>Look at the default exam bug on the canvas: Starting at <strong>Point 1 (Top Tip)</strong> and jumping straight to <strong>Point 2 (Bottom Tip)</strong> cuts vertically across the center of the diamond instead of tracing around the outside perimeter!</li>
+              <li>Use the dropdown menus in Steps 2, 3, and 4 to trace around the diamond's outer perimeter in <strong>clockwise order</strong>: <strong>Top Tip (Point 1) → Right Corner (Point ?) → Bottom Tip (Point ?) → Left Corner (Point ?)</strong>.</li>
+            </ol>
+          </div>
+
+          <!-- 4. Paper Test Checkpoint -->
+          <div class="bg-amber-50/90 rounded-xl border-2 border-amber-300 p-5">
+            <div class="flex items-center gap-2 text-amber-900 font-bold text-sm mb-2">
+              <i class="fa-solid fa-pen-to-square text-amber-600 text-base"></i>
+              <span>PAPER EXAM CHECKPOINT — Question 3 (Page 2)</span>
+            </div>
+            <div class="text-xs sm:text-sm text-amber-950 space-y-2">
+              <p><strong>Part (a) [10 Pts]:</strong> Explain why jumping directly from Point 1 (Top Tip) to Point 2 (Bottom Tip) causes the lines to cross through the center instead of following the outer perimeter.</p>
+              <p><strong>Part (b) [10 Pts]:</strong> Fill in the clockwise sequence blanks on your exam paper: <code class="font-mono-code bg-white px-1.5 py-0.5 rounded border border-amber-300">Point 1 → Point ___ → Point ___ → Point ___ → CLOSE</code>.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== STATION 4 CONTENT ==================== -->
+        <div id="station-panel-4" class="station-panel hidden space-y-5">
+          <!-- 1. Exam Challenge Card -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-sky-600 font-display">Exam Question 4 • 20 Points</span>
+              <span class="text-xs font-medium bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full">Variable Scope &amp; The 60-FPS Reset Bug</span>
+            </div>
+            <h2 class="text-lg font-bold text-slate-900 mb-2">Why Is the Circle Permanently Frozen at X = 100?</h2>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              In p5.js, <code class="font-mono-code text-xs bg-slate-100 px-1.5 py-0.5 rounded font-semibold">function draw()</code> loops automatically <strong>60 times every second</strong> from top to bottom. Watch what happens when a student declares <code class="font-mono-code text-xs bg-slate-100 px-1.5 py-0.5 rounded font-semibold">let circleX = 100;</code> <em>inside</em> <code class="font-mono-code text-xs bg-slate-100 px-1.5 py-0.5 rounded font-semibold">draw()</code>!
+            </p>
+          </div>
+
+          <!-- 2. Interactive Code Lab -->
+          <div class="bg-slate-900 rounded-xl border border-slate-800 shadow-md overflow-hidden">
+            <div class="bg-slate-950 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
+              <span class="text-xs font-mono-code text-slate-400">sketch.js — Scope Placement &amp; 60-FPS Loop Simulator</span>
+              <button onclick="copyStationCode(4)" class="text-xs bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 px-2.5 py-1 rounded flex items-center gap-1.5 transition">
+                <i class="fa-regular fa-copy"></i> Copy for p5.js Editor
+              </button>
+            </div>
+
+            <!-- Interactive Scope Toggle Bar -->
+            <div class="bg-slate-800/90 px-5 py-3 border-b border-slate-700 flex flex-wrap items-center justify-between gap-3">
+              <span class="text-xs font-bold uppercase tracking-wider text-slate-300">Select Variable Scope Placement:</span>
+              <div class="flex gap-2">
+                <button id="s4-btn-local" onclick="setStation4Scope('local')" class="text-xs px-3 py-1.5 rounded-lg font-bold bg-rose-500 text-white shadow-sm transition">
+                  <i class="fa-solid fa-bug mr-1"></i> Exam Bug: Inside draw() (Local)
+                </button>
+                <button id="s4-btn-global" onclick="setStation4Scope('global')" class="text-xs px-3 py-1.5 rounded-lg font-bold bg-slate-700 text-slate-300 hover:bg-slate-600 transition">
+                  <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Fix: Move ABOVE draw() (Global)
+                </button>
+              </div>
+            </div>
+
+            <div class="p-5 font-mono-code text-sm text-slate-200 space-y-1.5">
+              <!-- Global Slot -->
+              <div id="s4-global-line" class="hidden px-3 py-1.5 rounded bg-emerald-500/20 border-l-4 border-emerald-400 text-emerald-200 font-bold">
+                let circleX = 100; <span class="text-xs font-normal text-emerald-300">// GLOBAL SCOPE: Created once at program start!</span>
+              </div>
+
+              <div><span class="text-sky-400">function</span> <span class="text-amber-300">draw</span>() {</div>
+              <div class="pl-4"><span class="text-sky-300">background</span>(<span class="text-purple-300">220</span>);</div>
+
+              <!-- Local Bug Slot -->
+              <div id="s4-local-line" class="pl-4 py-1.5 rounded bg-rose-500/20 border-l-4 border-rose-400 text-rose-200 font-bold">
+                let circleX = 100; <span class="text-xs font-normal text-rose-300">// BUG: Resets circleX back to 100 every single frame!</span>
+              </div>
+
+              <div class="pl-4"><span class="text-sky-300">circle</span>(<span class="text-amber-300 font-bold">circleX</span>, <span class="text-purple-300">200</span>, <span class="text-purple-300">30</span>); <span id="s4-draw-comment" class="text-xs text-slate-400">// Always draws at X = 100</span></div>
+              <div class="pl-4"><span class="text-amber-300">circleX</span> = <span class="text-amber-300">circleX</span> + <span class="text-purple-300">2</span>; <span id="s4-inc-comment" class="text-xs text-slate-400">// Becomes 102, then gets wiped when draw() restarts!</span></div>
+              <div>}</div>
+            </div>
+
+            <!-- Live 60-FPS Telemetry Bar -->
+            <div class="bg-slate-950 px-5 py-3.5 border-t border-slate-800 grid grid-cols-3 gap-3 text-center">
+              <div class="bg-slate-900 p-2 rounded border border-slate-800">
+                <div class="text-[11px] text-slate-400 uppercase font-bold">draw() Frame Count</div>
+                <div id="s4-frame-count" class="font-mono-code text-base font-bold text-sky-400">Frame #1</div>
+              </div>
+              <div class="bg-slate-900 p-2 rounded border border-slate-800">
+                <div class="text-[11px] text-slate-400 uppercase font-bold">X When circle() Runs</div>
+                <div id="s4-x-drawn" class="font-mono-code text-base font-bold text-amber-300">circleX = 100</div>
+              </div>
+              <div class="bg-slate-900 p-2 rounded border border-slate-800">
+                <div class="text-[11px] text-slate-400 uppercase font-bold">End of Frame Value</div>
+                <div id="s4-x-end" class="font-mono-code text-base font-bold text-emerald-400">102 (Reset next frame!)</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Guided Lab Instructions -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800 mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-sky-600"></i> Partner Discovery Steps
+            </h3>
+            <ol class="text-sm text-slate-700 space-y-2 list-decimal list-inside">
+              <li>Observe the <strong>Exam Bug (Inside draw)</strong>: Even though <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">circleX = circleX + 2</code> adds 2 at the very bottom of <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">draw()</code>, the next frame immediately hits <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">let circleX = 100;</code> and resets it back to <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">100</code> before drawing!</li>
+              <li>Click the <strong>Fix: Move ABOVE draw() (Global)</strong> button. Watch how declaring <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">let circleX = 100;</code> outside and above <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">draw()</code> lets the variable remember its new value across frames and glide across the canvas!</li>
+            </ol>
+          </div>
+
+          <!-- 4. Paper Test Checkpoint -->
+          <div class="bg-amber-50/90 rounded-xl border-2 border-amber-300 p-5">
+            <div class="flex items-center gap-2 text-amber-900 font-bold text-sm mb-2">
+              <i class="fa-solid fa-pen-to-square text-amber-600 text-base"></i>
+              <span>PAPER EXAM CHECKPOINT — Question 4 (Page 2)</span>
+            </div>
+            <div class="text-xs sm:text-sm text-amber-950 space-y-2">
+              <p><strong>Part (a) [10 Pts]:</strong> Explain that because <code class="font-mono-code bg-white px-1 py-0.5 rounded border border-amber-300">draw()</code> repeats 60 times per second, having <code class="font-mono-code bg-white px-1 py-0.5 rounded border border-amber-300">let circleX = 100;</code> inside <code class="font-mono-code bg-white px-1 py-0.5 rounded border border-amber-300">draw()</code> resets <code class="font-mono-code">circleX</code> back to 100 every single frame.</p>
+              <p><strong>Part (b) [10 Pts]:</strong> State the exact fix: Move <code class="font-mono-code bg-white px-1 py-0.5 rounded border border-amber-300">let circleX = 100;</code> <strong>outside and above</strong> <code class="font-mono-code bg-white px-1 py-0.5 rounded border border-amber-300">draw()</code> (into Global Scope at the top of the sketch).</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ==================== STATION 5 CONTENT ==================== -->
+        <div id="station-panel-5" class="station-panel hidden space-y-5">
+          <!-- 1. Exam Challenge Card -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold uppercase tracking-wider text-sky-600 font-display">Exam Question 5 • 20 Points</span>
+              <span class="text-xs font-medium bg-slate-100 text-slate-700 px-2.5 py-0.5 rounded-full">Symmetrical Relative Math Offsets</span>
+            </div>
+            <h2 class="text-lg font-bold text-slate-900 mb-2">Keeping Companion Eyes Locked to a Moving Cursor Head</h2>
+            <p class="text-sm text-slate-600 leading-relaxed">
+              An interactive character head follows <code class="font-mono-code text-xs bg-slate-100 px-1.5 py-0.5 rounded font-semibold">(mouseX, mouseY)</code>. Two companion eyes must move <em>with</em> the head while staying symmetrically spaced <code class="font-mono-code text-xs bg-slate-100 px-1.5 py-0.5 rounded font-semibold">let eyeDist = 25;</code> pixels to the left and right of the center cursor.
+            </p>
+          </div>
+
+          <!-- 2. Interactive Code Lab -->
+          <div class="bg-slate-900 rounded-xl border border-slate-800 shadow-md overflow-hidden">
+            <div class="bg-slate-950 px-4 py-2.5 border-b border-slate-800 flex items-center justify-between">
+              <span class="text-xs font-mono-code text-slate-400">sketch.js — Hardcoded Numbers vs. Relative Math Expressions</span>
+              <button onclick="copyStationCode(5)" class="text-xs bg-slate-800 hover:bg-slate-700 text-sky-300 border border-slate-700 px-2.5 py-1 rounded flex items-center gap-1.5 transition">
+                <i class="fa-regular fa-copy"></i> Copy for p5.js Editor
+              </button>
+            </div>
+
+            <div class="p-5 font-mono-code text-sm text-slate-200 space-y-2">
+              <div><span class="text-sky-400">let</span> <span class="text-amber-300">eyeDist</span> = <span class="text-purple-300 font-bold">25</span>;</div>
+              <div class="text-slate-400 text-xs">// Mascot Head centered at live cursor:</div>
+              <div><span class="text-sky-300">circle</span>(<span class="text-emerald-300 font-bold">mouseX</span>, <span class="text-emerald-300 font-bold">mouseY</span>, <span class="text-purple-300">90</span>);</div>
+
+              <div class="text-slate-400 text-xs pt-1">// Choose the X coordinate expressions for the Left &amp; Right Eyes:</div>
+              <div class="bg-slate-800/90 p-2.5 rounded border border-slate-700 flex flex-wrap items-center gap-1.5">
+                <span class="text-sky-300">circle</span>(
+                <select id="s5-left-select" onchange="updateStation5Mode()" class="bg-slate-950 text-amber-300 font-bold border border-sky-500/60 rounded px-2 py-1 text-xs sm:text-sm focus:outline-none">
+                  <option value="hardcoded">175 (Hardcoded Number)</option>
+                  <option value="plus">mouseX + eyeDist</option>
+                  <option value="minus">mouseX - eyeDist</option>
+                </select>
+                , <span class="text-emerald-300">mouseY - 10</span>, <span class="text-purple-300">15</span> ); <span class="text-xs text-slate-400">// Left Eye</span>
+              </div>
+
+              <div class="bg-slate-800/90 p-2.5 rounded border border-slate-700 flex flex-wrap items-center gap-1.5">
+                <span class="text-sky-300">circle</span>(
+                <select id="s5-right-select" onchange="updateStation5Mode()" class="bg-slate-950 text-amber-300 font-bold border border-sky-500/60 rounded px-2 py-1 text-xs sm:text-sm focus:outline-none">
+                  <option value="hardcoded">225 (Hardcoded Number)</option>
+                  <option value="minus">mouseX - eyeDist</option>
+                  <option value="plus">mouseX + eyeDist</option>
+                </select>
+                , <span class="text-emerald-300">mouseY - 10</span>, <span class="text-purple-300">15</span> ); <span class="text-xs text-slate-400">// Right Eye</span>
+              </div>
+            </div>
+
+            <div class="bg-slate-800/70 px-5 py-3 border-t border-slate-800 flex flex-wrap items-center justify-between gap-2">
+              <span class="text-xs text-slate-300">Move your mouse over the 400×400 canvas on the right to test!</span>
+              <div class="flex gap-2">
+                <button onclick="setStation5Preset('hardcoded', 'hardcoded')" class="text-xs bg-rose-500/20 hover:bg-rose-500/30 text-rose-300 border border-rose-500/30 px-2.5 py-1 rounded transition">
+                  Test Hardcoded (175 &amp; 225)
+                </button>
+                <button onclick="setStation5Preset('minus', 'plus')" class="text-xs bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 px-2.5 py-1 rounded font-semibold transition">
+                  Test Relative Math (mouseX ± eyeDist)
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Guided Lab Instructions -->
+          <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-5">
+            <h3 class="text-sm font-bold uppercase tracking-wider text-slate-800 mb-3 flex items-center gap-2">
+              <i class="fa-solid fa-list-check text-sky-600"></i> Partner Discovery Steps
+            </h3>
+            <ol class="text-sm text-slate-700 space-y-2 list-decimal list-inside">
+              <li>First, leave the dropdowns set to <strong>Hardcoded Numbers (175 and 225)</strong> and move your cursor around the canvas. Notice how the head moves with your mouse, but the eyes stay frozen horizontally at <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">X = 175</code> and <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">X = 225</code> (detaching from the face)!</li>
+              <li>Now select <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">mouseX - eyeDist</code> for the <strong>Left Eye</strong> (since X decreases to the left) and <code class="font-mono-code text-xs bg-slate-100 px-1 py-0.5 rounded">mouseX + eyeDist</code> for the <strong>Right Eye</strong> (since X increases to the right). Move your mouse over the canvas to verify the eyes stay locked to the head!</li>
+            </ol>
+          </div>
+
+          <!-- 4. Paper Test Checkpoint -->
+          <div class="bg-amber-50/90 rounded-xl border-2 border-amber-300 p-5">
+            <div class="flex items-center gap-2 text-amber-900 font-bold text-sm mb-2">
+              <i class="fa-solid fa-pen-to-square text-amber-600 text-base"></i>
+              <span>PAPER EXAM CHECKPOINT — Question 5 (Page 3)</span>
+            </div>
+            <div class="text-xs sm:text-sm text-amber-950 space-y-2">
+              <p><strong>Part (a) [10 Pts]:</strong> Fill in the blanks on your exam paper:
+                <br>• Left Eye X: <code class="font-mono-code bg-white px-1.5 py-0.5 rounded border border-amber-300">mouseX - eyeDist</code>
+                <br>• Right Eye X: <code class="font-mono-code bg-white px-1.5 py-0.5 rounded border border-amber-300">mouseX + eyeDist</code>
+              </p>
+              <p><strong>Part (b) [10 Pts]:</strong> Explain why we use relative math expressions instead of hardcoded numbers: Hardcoded X numbers stay frozen in one spot when the cursor moves, whereas <code class="font-mono-code bg-white px-1 py-0.5 rounded border border-amber-300">mouseX ± eyeDist</code> recalculates automatically so the eyes move together with the head and can be resized easily by changing <code class="font-mono-code">eyeDist</code>.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ================================================================== -->
+      <!-- RIGHT COLUMN (5 COLS): LIVE 400x400 P5.JS CANVAS & GRID OVERLAY    -->
+      <!-- ================================================================== -->
+      <div class="lg:col-span-5 lg:sticky lg:top-28 space-y-4">
+        <div class="bg-white rounded-xl border border-slate-200 shadow-md overflow-hidden">
+          <!-- Canvas Top Status Bar -->
+          <div class="bg-slate-900 text-white px-4 py-3 flex items-center justify-between border-b border-slate-800">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+              <span class="text-xs font-bold uppercase tracking-wider font-display">Live 400 × 400 Canvas Output</span>
+            </div>
+            <div id="canvas-cursor-readout" class="font-mono-code text-xs bg-slate-800 text-sky-300 px-2.5 py-1 rounded border border-slate-700">
+              Cursor: (200, 200)
+            </div>
+          </div>
+
+          <!-- Status Banner Inside Canvas Card -->
+          <div id="station-status-banner" class="bg-rose-50 border-b border-rose-200 px-4 py-2.5 flex items-center justify-between">
+            <div class="flex items-center gap-2 text-xs font-bold text-rose-800">
+              <i id="station-status-icon" class="fa-solid fa-triangle-exclamation text-rose-600"></i>
+              <span id="station-status-text">Bug Active: Square is pushed off-canvas at (400, 400)</span>
+            </div>
+            <span id="station-status-pill" class="text-[11px] font-mono-code font-bold uppercase px-2 py-0.5 rounded bg-rose-200/80 text-rose-900">
+              Needs Fix
+            </span>
+          </div>
+
+          <!-- 400x400 Canvas Wrapper -->
+          <div class="p-4 bg-slate-100 flex flex-col items-center justify-center">
+            <div class="relative shadow-lg border-2 border-slate-900 rounded bg-white">
+              <canvas id="simCanvas" width="400" height="400" class="block w-[340px] h-[340px] sm:w-[400px] sm:h-[400px]"></canvas>
+            </div>
+          </div>
+
+          <!-- Canvas Footer Controls (Page 4 Scratchpad Grid Toggle) -->
+          <div class="px-4 py-3 bg-white border-t border-slate-200 flex flex-wrap items-center justify-between gap-2">
+            <label class="flex items-center gap-2 text-xs font-semibold text-slate-700 cursor-pointer select-none">
+              <input id="gridOverlayToggle" type="checkbox" checked onchange="renderCurrentStation()" class="w-4 h-4 accent-sky-600 rounded cursor-pointer">
+              <span>Show Page 4 Coordinate Grid Overlay (50px steps)</span>
+            </label>
+
+            <label class="flex items-center gap-2 text-xs font-semibold text-slate-700 cursor-pointer select-none">
+              <input id="dimensionOverlayToggle" type="checkbox" checked onchange="renderCurrentStation()" class="w-4 h-4 accent-sky-600 rounded cursor-pointer">
+              <span>Show Visual Helper Labels</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Quick Station Navigation Footer -->
+        <div class="bg-white rounded-xl border border-slate-200 shadow-sm p-3.5 flex items-center justify-between">
+          <button id="prevStationBtn" onclick="navigateStation(-1)" class="px-3.5 py-2 rounded-lg border border-slate-300 hover:bg-slate-100 text-xs font-bold text-slate-700 flex items-center gap-1.5 transition disabled:opacity-40">
+            <i class="fa-solid fa-arrow-left"></i> Previous Question
+          </button>
+          <span id="stationFooterLabel" class="text-xs font-bold text-slate-500 uppercase tracking-wider">Station 1 of 5</span>
+          <button id="nextStationBtn" onclick="navigateStation(1)" class="px-3.5 py-2 rounded-lg bg-sky-600 hover:bg-sky-500 text-xs font-bold text-white flex items-center gap-1.5 shadow-sm transition">
+            Next Question <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- JAVASCRIPT SIMULATION ENGINE -->
+  <script>
+    // =========================================================================
+    // GLOBAL APPLICATION STATE
+    // =========================================================================
+    let currentStation = 1;
+    const stationVerified = { 1: false, 2: false, 3: false, 4: false, 5: false };
+
+    // Station 1 State: rect(x, y, 60, 60)
+    let s1 = { x: 400, y: 400, w: 60, h: 60 };
+
+    // Station 2 State: Line debugger (1..5)
+    let s2 = { step: 5 };
+
+    // Station 3 State: Vertex order after Point 1
+    const s3Points = {
+      1: { x: 200, y: 50,  label: "Point 1: Top Tip (200, 50)" },
+      2: { x: 200, y: 250, label: "Point 2: Bottom Tip (200, 250)" },
+      3: { x: 280, y: 150, label: "Point 3: Right Corner (280, 150)" },
+      4: { x: 120, y: 150, label: "Point 4: Left Corner (120, 150)" }
+    };
+    let s3 = { seq: [1, 2, 3, 4] };
+
+    // Station 4 State: Scope & 60-FPS animation loop
+    let s4 = {
+      scope: 'local', // 'local' or 'global'
+      circleX: 100,
+      frameCount: 1
+    };
+
+    // Station 5 State: Relative math offsets
+    let s5 = {
+      leftMode: 'hardcoded',  // 'hardcoded' | 'minus' | 'plus'
+      rightMode: 'hardcoded', // 'hardcoded' | 'minus' | 'plus'
+      mouseX: 200,
+      mouseY: 200,
+      eyeDist: 25
+    };
+
+    const canvas = document.getElementById('simCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // =========================================================================
+    // CANVAS MOUSE TRACKING (LIVE COORDINATE READOUT & STATION 5 MASCOT)
+    // =========================================================================
+    canvas.addEventListener('mousemove', (e) => {
+      const rect = canvas.getBoundingClientRect();
+      const scaleX = canvas.width / rect.width;
+      const scaleY = canvas.height / rect.height;
+      const mx = Math.round(Math.max(0, Math.min(400, (e.clientX - rect.left) * scaleX)));
+      const my = Math.round(Math.max(0, Math.min(400, (e.clientY - rect.top) * scaleY)));
+
+      document.getElementById('canvas-cursor-readout').textContent = `Cursor: (${mx}, ${my})`;
+
+      if (currentStation === 5) {
+        s5.mouseX = mx;
+        s5.mouseY = my;
+        renderCurrentStation();
+      }
+    });
+
+    // Touch support for tablets/touchscreens
+    canvas.addEventListener('touchmove', (e) => {
+      if (e.touches.length > 0) {
+        const rect = canvas.getBoundingClientRect();
+        const scaleX = canvas.width / rect.width;
+        const scaleY = canvas.height / rect.height;
+        const mx = Math.round(Math.max(0, Math.min(400, (e.touches[0].clientX - rect.left) * scaleX)));
+        const my = Math.round(Math.max(0, Math.min(400, (e.touches[0].clientY - rect.top) * scaleY)));
+        document.getElementById('canvas-cursor-readout').textContent = `Cursor: (${mx}, ${my})`;
+        if (currentStation === 5) {
+          s5.mouseX = mx;
+          s5.mouseY = my;
+          renderCurrentStation();
+        }
+      }
+    }, { passive: true });
+
+    // =========================================================================
+    // STATION NAVIGATION & PROGRESS TRACKER
+    // =========================================================================
+    function switchStation(stationNum) {
+      currentStation = stationNum;
+
+      for (let i = 1; i <= 5; i++) {
+        const panel = document.getElementById(`station-panel-${i}`);
+        const tabBtn = document.getElementById(`tab-btn-${i}`);
+        if (i === stationNum) {
+          panel.classList.remove('hidden');
+          tabBtn.className = "station-tab flex items-center gap-2.5 px-4 py-3 text-xs sm:text-sm font-semibold border-b-2 border-sky-400 text-sky-400 bg-slate-900/80 whitespace-nowrap transition-all";
+        } else {
+          panel.classList.add('hidden');
+          tabBtn.className = "station-tab flex items-center gap-2.5 px-4 py-3 text-xs sm:text-sm font-semibold border-b-2 border-transparent text-slate-400 hover:text-slate-200 whitespace-nowrap transition-all";
+        }
+      }
+
+      document.getElementById('prevStationBtn').disabled = (stationNum === 1);
+      document.getElementById('nextStationBtn').disabled = (stationNum === 5);
+      document.getElementById('stationFooterLabel').textContent = `Station ${stationNum} of 5`;
+
+      if (stationNum === 2) {
+        updateStation2UI();
+      }
+      renderCurrentStation();
+    }
+
+    function navigateStation(delta) {
+      const next = Math.max(1, Math.min(5, currentStation + delta));
+      switchStation(next);
+    }
+
+    function markStationVerified(stationNum, isVerified) {
+      if (isVerified) {
+        stationVerified[stationNum] = true;
+      }
+      const dot = document.getElementById(`tab-dot-${stationNum}`);
+      if (stationVerified[stationNum]) {
+        dot.className = "w-5 h-5 rounded-full bg-emerald-500 text-slate-950 font-bold flex items-center justify-center text-xs";
+        dot.innerHTML = '<i class="fa-solid fa-check text-[10px]"></i>';
+      }
+
+      const count = Object.values(stationVerified).filter(Boolean).length;
+      const badge = document.getElementById('verifiedCounterBadge');
+      badge.textContent = `${count} / 5`;
+      if (count === 5) {
+        badge.className = "bg-emerald-500 text-slate-950 font-mono-code text-xs font-bold px-2.5 py-0.5 rounded shadow-sm";
+      }
+    }
+
+    function setBannerState(type, message, pillText) {
+      const banner = document.getElementById('station-status-banner');
+      const icon = document.getElementById('station-status-icon');
+      const text = document.getElementById('station-status-text');
+      const pill = document.getElementById('station-status-pill');
+
+      text.textContent = message;
+      pill.textContent = pillText;
+
+      if (type === 'success') {
+        banner.className = "bg-emerald-50 border-b border-emerald-200 px-4 py-2.5 flex items-center justify-between";
+        icon.className = "fa-solid fa-circle-check text-emerald-600";
+        text.className = "text-xs font-bold text-emerald-900";
+        pill.className = "text-[11px] font-mono-code font-bold uppercase px-2 py-0.5 rounded bg-emerald-200 text-emerald-950";
+      } else if (type === 'info') {
+        banner.className = "bg-sky-50 border-b border-sky-200 px-4 py-2.5 flex items-center justify-between";
+        icon.className = "fa-solid fa-eye text-sky-600";
+        text.className = "text-xs font-bold text-sky-900";
+        pill.className = "text-[11px] font-mono-code font-bold uppercase px-2 py-0.5 rounded bg-sky-200 text-sky-950";
+      } else {
+        banner.className = "bg-rose-50 border-b border-rose-200 px-4 py-2.5 flex items-center justify-between";
+        icon.className = "fa-solid fa-triangle-exclamation text-rose-600";
+        text.className = "text-xs font-bold text-rose-800";
+        pill.className = "text-[11px] font-mono-code font-bold uppercase px-2 py-0.5 rounded bg-rose-200/80 text-rose-900";
+      }
+    }
+
+    // =========================================================================
+    // SHARED 400x400 COORDINATE GRID OVERLAY (MATCHING EXAM PAGE 4)
+    // =========================================================================
+    function drawCoordinateGridOverlay() {
+      const showGrid = document.getElementById('gridOverlayToggle').checked;
+      if (!showGrid) return;
+
+      ctx.save();
+      ctx.font = "600 10px 'Fira Code', monospace";
+
+      for (let pos = 0; pos <= 400; pos += 25) {
+        const isMajor = (pos % 50 === 0);
+        const isCenter = (pos === 200);
+
+        ctx.beginPath();
+        ctx.strokeStyle = isCenter ? "rgba(15, 23, 42, 0.45)" : (isMajor ? "rgba(100, 116, 139, 0.28)" : "rgba(148, 163, 184, 0.15)");
+        ctx.lineWidth = isCenter ? 1.5 : 1;
+        if (isCenter) ctx.setLineDash([4, 4]);
+        else ctx.setLineDash([]);
+
+        // Vertical line
+        ctx.moveTo(pos, 0);
+        ctx.lineTo(pos, 400);
+        // Horizontal line
+        ctx.moveTo(0, pos);
+        ctx.lineTo(400, pos);
+        ctx.stroke();
+
+        if (isMajor && pos > 0 && pos < 400) {
+          ctx.fillStyle = "rgba(51, 65, 85, 0.75)";
+          ctx.fillText(pos, pos - 10, 12);
+          ctx.fillText(pos, 4, pos + 4);
+        }
+      }
+
+      ctx.setLineDash([]);
+      // (0,0) Origin marker
+      ctx.fillStyle = "#0f172a";
+      ctx.beginPath();
+      ctx.arc(0, 0, 5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.fillText("(0,0)", 8, 22);
+
+      // (200,200) Center marker
+      ctx.beginPath();
+      ctx.arc(200, 200, 4, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff";
+      ctx.fill();
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = "#0f172a";
+      ctx.stroke();
+      ctx.fillStyle = "#0f172a";
+      ctx.fillText("(200,200)", 206, 194);
+
+      ctx.restore();
+    }
+
+    // =========================================================================
+    // STATION 1 LOGIC: CORNER PLACEMENT (400 - 60 = 340)
+    // =========================================================================
+    function updateStation1FromInputs() {
+      const xVal = parseInt(document.getElementById('s1-x-input').value, 10);
+      const yVal = parseInt(document.getElementById('s1-y-input').value, 10);
+      s1.x = isNaN(xVal) ? 0 : Math.max(0, Math.min(400, xVal));
+      s1.y = isNaN(yVal) ? 0 : Math.max(0, Math.min(400, yVal));
+
+      document.getElementById('s1-x-slider').value = s1.x;
+      document.getElementById('s1-y-slider').value = s1.y;
+      updateStation1Readouts();
+      renderCurrentStation();
+    }
+
+    function syncStation1Sliders() {
+      s1.x = parseInt(document.getElementById('s1-x-slider').value, 10);
+      s1.y = parseInt(document.getElementById('s1-y-slider').value, 10);
+      document.getElementById('s1-x-input').value = s1.x;
+      document.getElementById('s1-y-input').value = s1.y;
+      updateStation1Readouts();
+      renderCurrentStation();
+    }
+
+    function setStation1Coords(x, y) {
+      s1.x = x;
+      s1.y = y;
+      document.getElementById('s1-x-input').value = x;
+      document.getElementById('s1-y-input').value = y;
+      document.getElementById('s1-x-slider').value = x;
+      document.getElementById('s1-y-slider').value = y;
+      updateStation1Readouts();
+      renderCurrentStation();
+    }
+
+    function updateStation1Readouts() {
+      document.getElementById('s1-x-readout').textContent = `X = ${s1.x} (Right Edge = ${s1.x + 60})`;
+      document.getElementById('s1-y-readout').textContent = `Y = ${s1.y} (Bottom Edge = ${s1.y + 60})`;
+    }
+
+    function renderStation1() {
+      ctx.fillStyle = "rgb(220, 220, 220)";
+      ctx.fillRect(0, 0, 400, 400);
+      drawCoordinateGridOverlay();
+
+      const isFlush = (s1.x === 340 && s1.y === 340);
+      const showHelpers = document.getElementById('dimensionOverlayToggle').checked;
+
+      // Target Ghost Box at (340, 340)
+      if (!isFlush && showHelpers) {
+        ctx.save();
+        ctx.strokeStyle = "rgba(16, 185, 129, 0.7)";
+        ctx.lineWidth = 2;
+        ctx.setLineDash([5, 4]);
+        ctx.strokeRect(340, 340, 60, 60);
+        ctx.fillStyle = "rgba(16, 185, 129, 0.12)";
+        ctx.fillRect(340, 340, 60, 60);
+        ctx.font = "700 10px 'Inter', sans-serif";
+        ctx.fillStyle = "#047857";
+        ctx.fillText("TARGET", 350, 372);
+        ctx.restore();
+      }
+
+      // Draw actual student square
+      ctx.save();
+      ctx.fillStyle = isFlush ? "rgba(16, 185, 129, 0.85)" : "rgba(255, 255, 255, 0.92)";
+      ctx.strokeStyle = isFlush ? "#065f46" : "#0f172a";
+      ctx.lineWidth = 2.5;
+      ctx.fillRect(s1.x, s1.y, s1.w, s1.h);
+      ctx.strokeRect(s1.x, s1.y, s1.w, s1.h);
+
+      // Draw Top-Left Anchor Dot (x, y)
+      if (showHelpers) {
+        ctx.fillStyle = "#e11d48";
+        ctx.beginPath();
+        ctx.arc(s1.x, s1.y, 5, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Label anchor coordinate
+        const labelX = Math.min(255, Math.max(8, s1.x - 10));
+        const labelY = Math.max(22, s1.y - 10);
+        ctx.fillStyle = "#0f172a";
+        ctx.fillRect(labelX - 4, labelY - 12, 132, 17);
+        ctx.fillStyle = "#f8fafc";
+        ctx.font = "700 10px 'Fira Code', monospace";
+        ctx.fillText(`Top-Left: (${s1.x},${s1.y})`, labelX, labelY);
+
+        // Width & Height callout inside square if visible
+        if (s1.x <= 350 && s1.y <= 350) {
+          ctx.fillStyle = isFlush ? "#ffffff" : "#1e293b";
+          ctx.font = "700 11px 'Fira Code', monospace";
+          ctx.fillText("60×60", s1.x + 12, s1.y + 34);
+        }
+      }
+      ctx.restore();
+
+      if (isFlush) {
+        setBannerState('success', 'Flush with Bottom-Right Corner! 400 - 60 = 340 for both X and Y.', 'Verified ✓');
+        markStationVerified(1, true);
+      } else if (s1.x > 340 || s1.y > 340) {
+        setBannerState('error', `Square overflows past 400! Right edge = ${s1.x + 60}, Bottom edge = ${s1.y + 60}.`, 'Off-Canvas');
+      } else {
+        setBannerState('error', `Not flush with (400, 400) yet. Right edge stops at ${s1.x + 60}, Bottom at ${s1.y + 60}.`, 'Keep Adjusting');
+      }
+    }
+
+    // =========================================================================
+    // STATION 2 LOGIC: SEQUENTIAL STATE MACHINE & FILL PERSISTENCE
+    // =========================================================================
+    function setStation2Step(stepNum) {
+      s2.step = stepNum;
+      updateStation2UI();
+      renderCurrentStation();
+    }
+
+    function stepStation2(delta) {
+      s2.step = Math.max(1, Math.min(5, s2.step + delta));
+      updateStation2UI();
+      renderCurrentStation();
+    }
+
+    function updateStation2UI() {
+      for (let i = 1; i <= 5; i++) {
+        const lineEl = document.getElementById(`s2-line-${i}`);
+        if (i === s2.step) {
+          lineEl.className = "px-3 py-1.5 rounded transition cursor-pointer code-line-highlight font-bold";
+        } else if (i < s2.step) {
+          lineEl.className = "px-3 py-1.5 rounded transition cursor-pointer opacity-95";
+        } else {
+          lineEl.className = "px-3 py-1.5 rounded transition cursor-pointer opacity-40";
+        }
+      }
+
+      document.getElementById('s2-step-badge').textContent = `Executing Line ${s2.step} of 5`;
+
+      const strokeSwatch = document.getElementById('s2-stroke-swatch');
+      const strokeText = document.getElementById('s2-stroke-text');
+
+      if (s2.step < 3) {
+        strokeSwatch.style.borderColor = "rgb(0, 0, 0)";
+        strokeSwatch.style.borderWidth = "2px";
+        strokeText.textContent = "Default Black — 1px thin border";
+      } else if (s2.step === 3) {
+        strokeSwatch.style.borderColor = "rgb(0, 0, 255)";
+        strokeSwatch.style.borderWidth = "2px";
+        strokeText.textContent = "RGB(0, 0, 255) — BLUE, 1px (Line 3)";
+      } else {
+        strokeSwatch.style.borderColor = "rgb(0, 0, 255)";
+        strokeSwatch.style.borderWidth = "4px";
+        strokeText.textContent = "RGB(0, 0, 255) — BLUE, 4px (Lines 3–4)";
+      }
+    }
+
+    function renderStation2() {
+      ctx.fillStyle = "rgb(220, 220, 220)";
+      ctx.fillRect(0, 0, 400, 400);
+      drawCoordinateGridOverlay();
+
+      const showHelpers = document.getElementById('dimensionOverlayToggle').checked;
+
+      // Line 2: rect(50, 50, 100, 100)
+      if (s2.step >= 2) {
+        ctx.save();
+        ctx.fillStyle = "rgb(255, 0, 0)";
+        ctx.strokeStyle = "rgb(0, 0, 0)";
+        ctx.lineWidth = 1;
+        ctx.fillRect(50, 50, 100, 100);
+        ctx.strokeRect(50, 50, 100, 100);
+
+        if (showHelpers) {
+          ctx.fillStyle = "#ffffff";
+          ctx.font = "700 11px 'Inter', sans-serif";
+          ctx.fillText("Line 2: rect()", 63, 98);
+          ctx.font = "600 10px 'Fira Code', monospace";
+          ctx.fillText("Fill: RED", 68, 114);
+        }
+        ctx.restore();
+      }
+
+      // Line 5: circle(250, 100, 60)
+      if (s2.step >= 5) {
+        ctx.save();
+        ctx.fillStyle = "rgb(255, 0, 0)";
+        ctx.strokeStyle = "rgb(0, 0, 255)";
+        ctx.lineWidth = 4;
+        ctx.beginPath();
+        ctx.arc(250, 100, 30, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.stroke();
+
+        if (showHelpers) {
+          // Callout box explaining the circle's styling
+          ctx.fillStyle = "#0f172a";
+          ctx.fillRect(165, 148, 215, 54);
+          ctx.strokeStyle = "#38bdf8";
+          ctx.lineWidth = 1.5;
+          ctx.strokeRect(165, 148, 215, 54);
+
+          ctx.fillStyle = "#f8fafc";
+          ctx.font = "700 11px 'Inter', sans-serif";
+          ctx.fillText("Line 5: circle(250, 100, 60)", 175, 166);
+          ctx.fillStyle = "#fda4af";
+          ctx.font = "600 10px 'Fira Code', monospace";
+          ctx.fillText("• Interior Fill: RED (from Line 1!)", 175, 182);
+          ctx.fillStyle = "#93c5fd";
+          ctx.fillText("• Border: BLUE, 4px (Lines 3–4)", 175, 196);
+        }
+        ctx.restore();
+
+        setBannerState('success', 'Line 5 Inspected: Circle has a RED interior fill and 4px BLUE border!', 'Verified ✓');
+        markStationVerified(2, true);
+      } else {
+        setBannerState('info', `Stepping through code (Line ${s2.step} of 5). Click "Next Line" to reach Line 5.`, `Line ${s2.step}/5`);
+      }
+    }
+
+    // =========================================================================
+    // STATION 3 LOGIC: CUSTOM VECTOR VERTICES & PERIMETER ORDERING
+    // =========================================================================
+    function updateStation3Sequence() {
+      const p2 = parseInt(document.getElementById('s3-slot-2').value, 10);
+      const p3 = parseInt(document.getElementById('s3-slot-3').value, 10);
+      const p4 = parseInt(document.getElementById('s3-slot-4').value, 10);
+      s3.seq = [1, p2, p3, p4];
+      document.getElementById('s3-path-readout').textContent = `Point 1 → Point ${p2} → Point ${p3} → Point ${p4} → CLOSE`;
+      renderCurrentStation();
+    }
+
+    function setStation3Preset(p2, p3, p4) {
+      document.getElementById('s3-slot-2').value = p2;
+      document.getElementById('s3-slot-3').value = p3;
+      document.getElementById('s3-slot-4').value = p4;
+      updateStation3Sequence();
+    }
+
+    function drawArrowhead(fromX, fromY, toX, toY, color) {
+      const midX = (fromX + toX) / 2;
+      const midY = (fromY + toY) / 2;
+      const angle = Math.atan2(toY - fromY, toX - fromX);
+      ctx.save();
+      ctx.translate(midX, midY);
+      ctx.rotate(angle);
+      ctx.fillStyle = color;
+      ctx.beginPath();
+      ctx.moveTo(6, 0);
+      ctx.lineTo(-5, -5);
+      ctx.lineTo(-5, 5);
+      ctx.closePath();
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function renderStation3() {
+      ctx.fillStyle = "rgb(220, 220, 220)";
+      ctx.fillRect(0, 0, 400, 400);
+      drawCoordinateGridOverlay();
+
+      const isClockwise = (s3.seq[0] === 1 && s3.seq[1] === 3 && s3.seq[2] === 2 && s3.seq[3] === 4);
+      const isCounterClockwise = (s3.seq[0] === 1 && s3.seq[1] === 4 && s3.seq[2] === 2 && s3.seq[3] === 3);
+      const hasDuplicates = (new Set(s3.seq).size !== 4);
+
+      // Draw polygon shape
+      ctx.save();
+      ctx.beginPath();
+      const firstPt = s3Points[s3.seq[0]];
+      ctx.moveTo(firstPt.x, firstPt.y);
+      for (let i = 1; i < s3.seq.length; i++) {
+        const pt = s3Points[s3.seq[i]];
+        ctx.lineTo(pt.x, pt.y);
+      }
+      ctx.closePath();
+
+      ctx.fillStyle = isClockwise ? "rgba(16, 185, 129, 0.35)" : (isCounterClockwise ? "rgba(56, 189, 248, 0.35)" : "rgba(244, 63, 94, 0.35)");
+      ctx.strokeStyle = isClockwise ? "#047857" : (isCounterClockwise ? "#0369a1" : "#be123c");
+      ctx.lineWidth = 3;
+      ctx.fill();
+      ctx.stroke();
+
+      // Draw directional arrows along segments
+      for (let i = 0; i < s3.seq.length; i++) {
+        const a = s3Points[s3.seq[i]];
+        const b = s3Points[s3.seq[(i + 1) % s3.seq.length]];
+        drawArrowhead(a.x, a.y, b.x, b.y, ctx.strokeStyle);
+      }
+
+      // Draw the 4 labeled vertex points
+      const badgeOffsets = {
+        1: { dx: -52, dy: -16, text: "Point 1: Top (200,50)" },
+        2: { dx: -60, dy: 24,  text: "Point 2: Bottom (200,250)" },
+        3: { dx: 12,  dy: 4,   text: "Point 3: Right (280,150)" },
+        4: { dx: -115, dy: 4,  text: "Point 4: Left (120,150)" }
+      };
+
+      for (let ptNum = 1; ptNum <= 4; ptNum++) {
+        const pt = s3Points[ptNum];
+        ctx.fillStyle = "#0f172a";
+        ctx.beginPath();
+        ctx.arc(pt.x, pt.y, 6, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = "#ffffff";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        if (document.getElementById('dimensionOverlayToggle').checked) {
+          const off = badgeOffsets[ptNum];
+          ctx.font = "700 10px 'Fira Code', monospace";
+          ctx.fillStyle = "#0f172a";
+          ctx.fillText(off.text, pt.x + off.dx, pt.y + off.dy);
+        }
+      }
+      ctx.restore();
+
+      if (isClockwise) {
+        setBannerState('success', 'Clockwise Diamond Achieved: Point 1 → Point 3 → Point 2 → Point 4 → CLOSE!', 'Verified ✓');
+        markStationVerified(3, true);
+      } else if (hasDuplicates) {
+        setBannerState('error', 'Duplicate Point Selected! Make sure Steps 2, 3, and 4 use Points 2, 3, and 4.', 'Duplicate Point');
+      } else if (isCounterClockwise) {
+        setBannerState('info', 'Valid Counter-Clockwise Diamond! Now switch to Clockwise (Point 3 before Point 4) for Question 3(b).', 'Try Clockwise');
+      } else {
+        setBannerState('error', 'Bowtie / Hourglass Defect! Jumping across the center crosses the edges.', 'Twisted Polygon');
+      }
+    }
+
+    // =========================================================================
+    // STATION 4 LOGIC: VARIABLE SCOPE & 60-FPS RESET BUG
+    // =========================================================================
+    function setStation4Scope(mode) {
+      s4.scope = mode;
+      s4.circleX = 100;
+      s4.frameCount = 1;
+
+      const btnLocal = document.getElementById('s4-btn-local');
+      const btnGlobal = document.getElementById('s4-btn-global');
+      const globalLine = document.getElementById('s4-global-line');
+      const localLine = document.getElementById('s4-local-line');
+
+      if (mode === 'global') {
+        btnGlobal.className = "text-xs px-3 py-1.5 rounded-lg font-bold bg-emerald-500 text-slate-950 shadow-sm transition";
+        btnLocal.className = "text-xs px-3 py-1.5 rounded-lg font-bold bg-slate-700 text-slate-300 hover:bg-slate-600 transition";
+        globalLine.classList.remove('hidden');
+        localLine.classList.add('hidden');
+        document.getElementById('s4-draw-comment').textContent = "// Uses persistent global circleX!";
+        document.getElementById('s4-inc-comment').textContent = "// Adds 2 and remembers it for the next frame!";
+        setBannerState('success', 'Global Scope Active! let circleX = 100 is above draw(), so the circle animates smoothly.', 'Verified ✓');
+        markStationVerified(4, true);
+      } else {
+        btnLocal.className = "text-xs px-3 py-1.5 rounded-lg font-bold bg-rose-500 text-white shadow-sm transition";
+        btnGlobal.className = "text-xs px-3 py-1.5 rounded-lg font-bold bg-slate-700 text-slate-300 hover:bg-slate-600 transition";
+        globalLine.classList.add('hidden');
+        localLine.classList.remove('hidden');
+        document.getElementById('s4-draw-comment').textContent = "// Always draws at X = 100";
+        document.getElementById('s4-inc-comment').textContent = "// Becomes 102, then gets wiped when draw() restarts!";
+        setBannerState('error', '60-FPS Reset Bug Active: let circleX = 100 inside draw() resets X to 100 every frame!', 'Frozen at X=100');
+      }
+    }
+
+    function renderStation4() {
+      ctx.fillStyle = "rgb(220, 220, 220)";
+      ctx.fillRect(0, 0, 400, 400);
+      drawCoordinateGridOverlay();
+
+      s4.frameCount++;
+      let drawnX = 100;
+      let endOfFrameX = 102;
+
+      if (s4.scope === 'local') {
+        // Bug: resets to 100 every frame
+        s4.circleX = 100;
+        drawnX = s4.circleX;
+        s4.circleX = s4.circleX + 2;
+        endOfFrameX = s4.circleX;
+      } else {
+        // Fixed Global Scope: increments smoothly and wraps around canvas for demo
+        drawnX = s4.circleX;
+        s4.circleX = s4.circleX + 2;
+        if (s4.circleX > 415) s4.circleX = 0;
+        endOfFrameX = s4.circleX;
+      }
+
+      // Update telemetry readouts
+      document.getElementById('s4-frame-count').textContent = `Frame #${s4.frameCount}`;
+      document.getElementById('s4-x-drawn').textContent = `circleX = ${drawnX}`;
+      document.getElementById('s4-x-end').textContent = s4.scope === 'local'
+        ? `102 (Wiped back to 100!)`
+        : `${endOfFrameX} (Saved for next frame!)`;
+
+      // Draw X = 100 freeze reference line
+      if (document.getElementById('dimensionOverlayToggle').checked) {
+        ctx.save();
+        ctx.strokeStyle = s4.scope === 'local' ? "rgba(225, 29, 72, 0.7)" : "rgba(100, 116, 139, 0.4)";
+        ctx.lineWidth = 1.5;
+        ctx.setLineDash([4, 4]);
+        ctx.beginPath();
+        ctx.moveTo(100, 40);
+        ctx.lineTo(100, 360);
+        ctx.stroke();
+        ctx.fillStyle = s4.scope === 'local' ? "#be123c" : "#475569";
+        ctx.font = "700 10px 'Fira Code', monospace";
+        ctx.fillText("X = 100 Start Line", 55, 165);
+        ctx.restore();
+      }
+
+      // Draw circle(circleX, 200, 30)
+      ctx.save();
+      ctx.fillStyle = s4.scope === 'global' ? "#10b981" : "#f43f5e";
+      ctx.strokeStyle = "#0f172a";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      ctx.arc(drawnX, 200, 15, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      if (document.getElementById('dimensionOverlayToggle').checked) {
+        ctx.fillStyle = "#0f172a";
+        ctx.font = "700 11px 'Fira Code', monospace";
+        ctx.fillText(`X = ${drawnX}`, Math.min(330, Math.max(10, drawnX - 24)), 235);
+      }
+      ctx.restore();
+    }
+
+    // =========================================================================
+    // STATION 5 LOGIC: SYMMETRICAL RELATIVE MATH OFFSETS (mouseX ± eyeDist)
+    // =========================================================================
+    function updateStation5Mode() {
+      s5.leftMode = document.getElementById('s5-left-select').value;
+      s5.rightMode = document.getElementById('s5-right-select').value;
+      renderCurrentStation();
+    }
+
+    function setStation5Preset(leftVal, rightVal) {
+      document.getElementById('s5-left-select').value = leftVal;
+      document.getElementById('s5-right-select').value = rightVal;
+      updateStation5Mode();
+    }
+
+    function renderStation5() {
+      ctx.fillStyle = "rgb(220, 220, 220)";
+      ctx.fillRect(0, 0, 400, 400);
+      drawCoordinateGridOverlay();
+
+      const mx = s5.mouseX;
+      const my = s5.mouseY;
+      const eyeDist = s5.eyeDist; // 25
+
+      const leftEyeX = (s5.leftMode === 'hardcoded') ? 175 : (s5.leftMode === 'minus' ? mx - eyeDist : mx + eyeDist);
+      const rightEyeX = (s5.rightMode === 'hardcoded') ? 225 : (s5.rightMode === 'plus' ? mx + eyeDist : mx - eyeDist);
+      const eyeY = my - 10;
+
+      const isCorrectRelative = (s5.leftMode === 'minus' && s5.rightMode === 'plus');
+
+      // 1. Draw Mascot Head: circle(mouseX, mouseY, 90)
+      ctx.save();
+      ctx.fillStyle = isCorrectRelative ? "rgba(56, 189, 248, 0.85)" : "rgba(251, 191, 36, 0.85)";
+      ctx.strokeStyle = "#0f172a";
+      ctx.lineWidth = 2.5;
+      ctx.beginPath();
+      ctx.arc(mx, my, 45, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+
+      // 2. Draw Left Eye & Right Eye
+      ctx.fillStyle = "#ffffff";
+      ctx.strokeStyle = "#0f172a";
+      ctx.lineWidth = 2;
+
+      // Left Eye
+      ctx.beginPath();
+      ctx.arc(leftEyeX, eyeY, 7.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#0f172a";
+      ctx.beginPath();
+      ctx.arc(leftEyeX, eyeY, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Right Eye
+      ctx.fillStyle = "#ffffff";
+      ctx.beginPath();
+      ctx.arc(rightEyeX, eyeY, 7.5, 0, Math.PI * 2);
+      ctx.fill();
+      ctx.stroke();
+      ctx.fillStyle = "#0f172a";
+      ctx.beginPath();
+      ctx.arc(rightEyeX, eyeY, 3, 0, Math.PI * 2);
+      ctx.fill();
+
+      // Visual Dimension Callouts
+      if (document.getElementById('dimensionOverlayToggle').checked) {
+        // Center cursor crosshair dot
+        ctx.fillStyle = "#e11d48";
+        ctx.beginPath();
+        ctx.arc(mx, my, 4, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Horizontal offset brackets from mouseX to Left/Right eyes
+        ctx.strokeStyle = "#0f172a";
+        ctx.lineWidth = 1.5;
+        ctx.beginPath();
+        ctx.moveTo(leftEyeX, my - 30);
+        ctx.lineTo(rightEyeX, my - 30);
+        ctx.stroke();
+
+        ctx.font = "700 10px 'Fira Code', monospace";
+        ctx.fillStyle = "#0f172a";
+        ctx.fillText(`mouseX (${mx})`, Math.min(310, Math.max(10, mx - 36)), my + 26);
+        ctx.fillText(`L:${leftEyeX}`, leftEyeX - 18, my - 36);
+        ctx.fillText(`R:${rightEyeX}`, rightEyeX - 14, my - 36);
+      }
+      ctx.restore();
+
+      if (isCorrectRelative) {
+        setBannerState('success', 'Symmetrical Relative Math Active! Left = mouseX - eyeDist, Right = mouseX + eyeDist.', 'Verified ✓');
+        markStationVerified(5, true);
+      } else if (s5.leftMode === 'hardcoded' || s5.rightMode === 'hardcoded') {
+        setBannerState('error', 'Hardcoded X Detected! Move your mouse across the canvas—notice how hardcoded eyes detach from the head!', 'Eyes Detach!');
+      } else {
+        setBannerState('error', 'Both eyes are on the same side or swapped! Left needs (- eyeDist), Right needs (+ eyeDist).', 'Check ± Signs');
+      }
+    }
+
+    // =========================================================================
+    // MASTER RENDER DISPATCHER & 60-FPS LOOP FOR STATION 4
+    // =========================================================================
+    function renderCurrentStation() {
+      if (currentStation === 1) renderStation1();
+      else if (currentStation === 2) renderStation2();
+      else if (currentStation === 3) renderStation3();
+      else if (currentStation === 4) renderStation4();
+      else if (currentStation === 5) renderStation5();
+    }
+
+    function animationLoop() {
+      if (currentStation === 4) {
+        renderStation4();
+      }
+      requestAnimationFrame(animationLoop);
+    }
+
+    // =========================================================================
+    // COPY CODE TO CLIPBOARD FOR P5.JS WEB EDITOR
+    // =========================================================================
+    function copyStationCode(stationNum) {
+      let codeText = "";
+      if (stationNum === 1) {
+        codeText = `function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(220);\n  // Question 1: 60x60 square flush in bottom-right corner\n  rect(${s1.x}, ${s1.y}, 60, 60);\n}`;
+      } else if (stationNum === 2) {
+        codeText = `function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(220);\n  fill(255, 0, 0);\n  rect(50, 50, 100, 100);\n  stroke(0, 0, 255);\n  strokeWeight(4);\n  circle(250, 100, 60);\n}`;
+      } else if (stationNum === 3) {
+        const lines = s3.seq.map(ptNum => {
+          const p = s3Points[ptNum];
+          return `  vertex(${p.x}, ${p.y}); // ${p.label}`;
+        }).join('\n');
+        codeText = `function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(220);\n  beginShape();\n${lines}\n  endShape(CLOSE);\n}`;
+      } else if (stationNum === 4) {
+        if (s4.scope === 'global') {
+          codeText = `let circleX = 100; // Global scope above setup/draw\n\nfunction setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(220);\n  circle(circleX, 200, 30);\n  circleX = circleX + 2;\n}`;
+        } else {
+          codeText = `function setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(220);\n  let circleX = 100; // Local scope bug: resets every frame\n  circle(circleX, 200, 30);\n  circleX = circleX + 2;\n}`;
+        }
+      } else if (stationNum === 5) {
+        const lExpr = s5.leftMode === 'hardcoded' ? '175' : (s5.leftMode === 'minus' ? 'mouseX - eyeDist' : 'mouseX + eyeDist');
+        const rExpr = s5.rightMode === 'hardcoded' ? '225' : (s5.rightMode === 'plus' ? 'mouseX + eyeDist' : 'mouseX - eyeDist');
+        codeText = `let eyeDist = 25;\n\nfunction setup() {\n  createCanvas(400, 400);\n}\n\nfunction draw() {\n  background(220);\n  // Mascot Head\n  circle(mouseX, mouseY, 90);\n  // Left & Right Companion Eyes\n  circle(${lExpr}, mouseY - 10, 15);\n  circle(${rExpr}, mouseY - 10, 15);\n}`;
+      }
+
+      const tempInput = document.createElement('textarea');
+      tempInput.value = codeText;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempInput);
+
+      const toast = document.getElementById('copyToast');
+      toast.classList.remove('hidden');
+      setTimeout(() => toast.classList.add('hidden'), 2500);
+    }
+
+    // Initialize on load
+    window.onload = function() {
+      updateStation1Readouts();
+      renderCurrentStation();
+      requestAnimationFrame(animationLoop);
+    };
+  </script>
+</body>
+</html>
