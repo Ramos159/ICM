@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>U1LA4.2C Lab: The House Scene Refactor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+    .font-display { font-family: 'Space Grotesk', sans-serif; }
+    .font-mono-code { font-family: 'Fira Code', monospace; }
+    
+    /* Custom Scrollbar for code block */
+    pre::-webkit-scrollbar { width: 8px; height: 8px; }
+    pre::-webkit-scrollbar-track { background: #020617; }
+    pre::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    pre::-webkit-scrollbar-thumb:hover { background: #475569; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-sky-500/30">
+
+  <!-- HEADER -->
+  <header class="bg-slate-900 border-b border-slate-800 px-6 py-5 sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-sky-500 flex items-center justify-center text-slate-950 font-bold text-2xl shadow-lg shadow-sky-500/20">
+          <i class="fa-solid fa-code"></i>
+        </div>
+        <div>
+          <div class="text-xs font-bold uppercase tracking-widest text-sky-400 font-display mb-1">
+            Gotham Tech High School • p5.js Studio
+          </div>
+          <h1 class="text-xl md:text-2xl font-bold tracking-tight font-display text-white">
+            U1LA4.2C: The House Scene Refactor
+          </h1>
+        </div>
+      </div>
+      <a href="https://editor.p5js.org/" target="_blank" rel="noopener noreferrer" 
+         class="bg-rose-500 hover:bg-rose-400 text-white text-sm font-bold px-4 py-2.5 rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-rose-500/20 whitespace-nowrap">
+        Open p5.js Editor <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
+
+    <!-- STEP 1: COPY CODE -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+      <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-sky-500/20 border border-sky-400 text-sky-400 font-bold font-display">1</span>
+          <h2 class="text-lg font-bold text-slate-100 font-display">Copy the Messy Starter Code</h2>
+        </div>
+        <button onclick="copyCode()" id="copyBtn" class="bg-slate-800 hover:bg-slate-700 text-sky-300 font-mono-code text-sm font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors border border-slate-700">
+          <i class="fa-regular fa-copy"></i> <span id="copyText">Copy to Clipboard</span>
+        </button>
+      </div>
+      
+      <div class="p-0 relative group">
+        <pre id="codeBlock" class="p-6 font-mono-code text-sm sm:text-[15px] leading-relaxed text-slate-300 overflow-x-auto"><span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">setup</span>() {
+  <span class="text-sky-300">createCanvas</span>(<span class="text-purple-300">400</span>, <span class="text-purple-300">400</span>);
+}
+
+<span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">draw</span>() {
+  <span class="text-slate-500 italic">// 1. Sky</span>
+  <span class="text-sky-300">background</span>(<span class="text-purple-300">135</span>, <span class="text-purple-300">206</span>, <span class="text-purple-300">235</span>);
+  <span class="text-emerald-400">fill</span>(<span class="text-purple-300">255</span>, <span class="text-purple-300">204</span>, <span class="text-purple-300">0</span>); <span class="text-emerald-400">circle</span>(<span class="text-purple-300">350</span>, <span class="text-purple-300">50</span>, <span class="text-purple-300">80</span>);
+
+  <span class="text-slate-500 italic">// 2. Ground</span>
+  <span class="text-emerald-400">fill</span>(<span class="text-purple-300">34</span>, <span class="text-purple-300">139</span>, <span class="text-purple-300">34</span>); <span class="text-emerald-400">rect</span>(<span class="text-purple-300">0</span>, <span class="text-purple-300">300</span>, <span class="text-purple-300">400</span>, <span class="text-purple-300">100</span>);
+  <span class="text-emerald-400">fill</span>(<span class="text-purple-300">139</span>, <span class="text-purple-300">69</span>, <span class="text-purple-300">19</span>); <span class="text-emerald-400">rect</span>(<span class="text-purple-300">50</span>, <span class="text-purple-300">250</span>, <span class="text-purple-300">20</span>, <span class="text-purple-300">50</span>); <span class="text-slate-500 italic">// Tree Trunk</span>
+
+  <span class="text-slate-500 italic">// 3. Structure</span>
+  <span class="text-emerald-400">fill</span>(<span class="text-purple-300">210</span>, <span class="text-purple-300">180</span>, <span class="text-purple-300">140</span>); <span class="text-emerald-400">rect</span>(<span class="text-purple-300">100</span>, <span class="text-purple-300">150</span>, <span class="text-purple-300">200</span>, <span class="text-purple-300">150</span>);
+  <span class="text-emerald-400">fill</span>(<span class="text-purple-300">139</span>, <span class="text-purple-300">0</span>, <span class="text-purple-300">0</span>);   <span class="text-emerald-400">triangle</span>(<span class="text-purple-300">100</span>, <span class="text-purple-300">150</span>, <span class="text-purple-300">200</span>, <span class="text-purple-300">50</span>, <span class="text-purple-300">300</span>, <span class="text-purple-300">150</span>);
+
+  <span class="text-slate-500 italic">// 4. Details</span>
+  <span class="text-emerald-400">fill</span>(<span class="text-purple-300">101</span>, <span class="text-purple-300">67</span>, <span class="text-purple-300">33</span>);   <span class="text-emerald-400">rect</span>(<span class="text-purple-300">140</span>, <span class="text-purple-300">220</span>, <span class="text-purple-300">40</span>, <span class="text-purple-300">80</span>);
+  <span class="text-emerald-400">fill</span>(<span class="text-purple-300">173</span>, <span class="text-purple-300">216</span>, <span class="text-purple-300">230</span>); <span class="text-emerald-400">rect</span>(<span class="text-purple-300">220</span>, <span class="text-purple-300">180</span>, <span class="text-purple-300">40</span>, <span class="text-purple-300">40</span>);
+}</pre>
+      </div>
+    </section>
+
+    <!-- STEP 2: THE REFACTOR MISSION -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+      <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex items-center gap-3">
+        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-400 font-bold font-display">2</span>
+        <h2 class="text-lg font-bold text-slate-100 font-display">The Refactoring Mission</h2>
+      </div>
+      
+      <div class="p-6 md:p-8">
+        <p class="text-slate-300 text-[17px] leading-relaxed mb-6">
+          Your goal is to clear out the messy <code class="font-mono-code text-sky-400 bg-slate-800 px-1.5 py-0.5 rounded">draw()</code> loop. You must build <strong class="text-white">4 custom functions</strong> down below <code class="font-mono-code text-sky-400 bg-slate-800 px-1.5 py-0.5 rounded">draw()</code>, cut the messy shapes out, and paste them into their new containers.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-sky-500/20 flex items-center justify-center text-sky-400 text-lg">
+              <i class="fa-solid fa-cloud"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Section 1 (I Do)</div>
+              <div class="font-mono-code font-bold text-sky-400">drawSky()</div>
+            </div>
+          </div>
+
+          <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-emerald-500/20 flex items-center justify-center text-emerald-400 text-lg">
+              <i class="fa-solid fa-tree"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Section 2 (We Do)</div>
+              <div class="font-mono-code font-bold text-emerald-400">drawGround()</div>
+            </div>
+          </div>
+
+          <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center text-amber-400 text-lg">
+              <i class="fa-solid fa-house"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Section 3 (You Do)</div>
+              <div class="font-mono-code font-bold text-amber-400">drawHouseStructure()</div>
+            </div>
+          </div>
+
+          <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-4 flex items-center gap-4">
+            <div class="w-10 h-10 rounded-full bg-purple-500/20 flex items-center justify-center text-purple-400 text-lg">
+              <i class="fa-solid fa-door-open"></i>
+            </div>
+            <div>
+              <div class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">Section 4 (You Do)</div>
+              <div class="font-mono-code font-bold text-purple-400">drawHouseDetails()</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: SUBMIT -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+      <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex items-center gap-3">
+        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-amber-500/20 border border-amber-400 text-amber-400 font-bold font-display">3</span>
+        <h2 class="text-lg font-bold text-slate-100 font-display">Turn-In &amp; Exit Ticket</h2>
+      </div>
+      
+      <div class="p-6 md:p-8 space-y-6">
+        <div class="flex items-start gap-4">
+          <i class="fa-solid fa-link text-xl text-sky-400 mt-1"></i>
+          <div>
+            <h3 class="font-bold text-white text-lg mb-1">1. Submit Your Link</h3>
+            <p class="text-slate-400 leading-relaxed">Save your sketch in p5.js, click <strong class="text-slate-200">File > Share</strong>, copy the Edit link, and attach it to the Google Classroom assignment.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 pt-4 border-t border-slate-800">
+          <i class="fa-regular fa-comment-dots text-xl text-emerald-400 mt-1"></i>
+          <div>
+            <h3 class="font-bold text-white text-lg mb-2">2. Answer the Private Comment</h3>
+            <p class="text-slate-400 leading-relaxed mb-3">Copy and paste these questions into a private comment on Google Classroom, and answer them before leaving:</p>
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-slate-300 font-mono-code text-sm space-y-3">
+              <p>Q1: How did having a clean draw() loop make it easier to understand the order in which the scene was painted?</p>
+              <p>Q2: What visual glitch happens if you accidentally call drawHouseDetails() before drawHouseStructure()?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function copyCode() {
+      const rawCode = `function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  // 1. Sky
+  background(135, 206, 235);
+  fill(255, 204, 0); circle(350, 50, 80);
+
+  // 2. Ground
+  fill(34, 139, 34); rect(0, 300, 400, 100);
+  fill(139, 69, 19); rect(50, 250, 20, 50); // Tree Trunk
+
+  // 3. Structure
+  fill(210, 180, 140); rect(100, 150, 200, 150);
+  fill(139, 0, 0);   triangle(100, 150, 200, 50, 300, 150);
+
+  // 4. Details
+  fill(101, 67, 33);   rect(140, 220, 40, 80);
+  fill(173, 216, 230); rect(220, 180, 40, 40);
+}`;
+
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = rawCode;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextArea);
+
+      const btn = document.getElementById('copyBtn');
+      const text = document.getElementById('copyText');
+      
+      btn.classList.remove('bg-slate-800', 'text-sky-300', 'border-slate-700');
+      btn.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/50');
+      text.textContent = "Copied!";
+      
+      setTimeout(() => {
+        btn.classList.add('bg-slate-800', 'text-sky-300', 'border-slate-700');
+        btn.classList.remove('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/50');
+        text.textContent = "Copy to Clipboard";
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
