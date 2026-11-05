@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>U1LA4.3 Lab: Draw with Functions</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+    .font-display { font-family: 'Space Grotesk', sans-serif; }
+    .font-mono-code { font-family: 'Fira Code', monospace; }
+    
+    pre::-webkit-scrollbar { width: 8px; height: 8px; }
+    pre::-webkit-scrollbar-track { background: #020617; border-radius: 4px; }
+    pre::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    pre::-webkit-scrollbar-thumb:hover { background: #475569; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-sky-500/30">
+
+  <!-- HEADER -->
+  <header class="bg-slate-900 border-b border-slate-800 px-6 py-5 sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-sky-500 flex items-center justify-center text-slate-950 font-bold text-2xl shadow-lg shadow-sky-500/20">
+          <i class="fa-solid fa-code"></i>
+        </div>
+        <div>
+          <div class="text-xs font-bold uppercase tracking-widest text-sky-400 font-display mb-1">
+            Gotham Tech High School • p5.js Studio
+          </div>
+          <h1 class="text-xl md:text-2xl font-bold tracking-tight font-display text-white">
+            U1LA4.3: Dynamic Parameter Stamps
+          </h1>
+        </div>
+      </div>
+      <a href="https://editor.p5js.org/" target="_blank" rel="noopener noreferrer" 
+         class="bg-rose-500 hover:bg-rose-400 text-white text-sm font-bold px-4 py-2.5 rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-rose-500/20 whitespace-nowrap">
+        Open p5.js Editor <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
+
+    <!-- STEP 1: STARTER CODE -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+      <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-sky-500/20 border border-sky-400 text-sky-400 font-bold font-display">1</span>
+          <h2 class="text-lg font-bold text-slate-100 font-display">Copy Starter Code</h2>
+        </div>
+        <button onclick="copyCode()" id="copyBtn" class="bg-slate-800 hover:bg-slate-700 text-sky-300 font-mono-code text-sm font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors border border-slate-700">
+          <i class="fa-regular fa-copy"></i> <span id="copyText">Copy to Clipboard</span>
+        </button>
+      </div>
+      
+      <div class="p-0 relative">
+        <pre id="codeBlock" class="p-6 font-mono-code text-sm sm:text-[15px] leading-relaxed text-slate-300 overflow-x-auto"><span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">setup</span>() {
+  <span class="text-sky-300">createCanvas</span>(<span class="text-purple-300">400</span>, <span class="text-purple-300">400</span>);
+  <span class="text-sky-300">angleMode</span>(<span class="text-purple-300">DEGREES</span>);
+}
+
+<span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">draw</span>() {
+  <span class="text-sky-300">background</span>(<span class="text-purple-300">220</span>);
+  
+  <span class="text-slate-500 italic">// Helper: Shows mouse coordinates</span>
+  <span class="text-sky-300">text</span>(<span class="text-emerald-300">mouseX</span> + <span class="text-green-300">", "</span> + <span class="text-emerald-300">mouseY</span>, <span class="text-purple-300">20</span>, <span class="text-purple-300">20</span>);
+
+  <span class="text-slate-500 italic">// Happy Face</span>
+  <span class="text-sky-300">strokeWeight</span>(<span class="text-purple-300">1</span>);
+  <span class="text-sky-300">stroke</span>(<span class="text-purple-300">0</span>);
+  <span class="text-sky-300">fill</span>(<span class="text-purple-300">169</span>, <span class="text-purple-300">222</span>, <span class="text-purple-300">183</span>);
+  <span class="text-sky-300">ellipse</span>(<span class="text-purple-300">125</span>, <span class="text-purple-300">200</span>, <span class="text-purple-300">100</span>);
+  <span class="text-sky-300">arc</span>(<span class="text-purple-300">110</span>, <span class="text-purple-300">200</span>, <span class="text-purple-300">25</span>, <span class="text-purple-300">25</span>, <span class="text-purple-300">180</span>, <span class="text-purple-300">0</span>);
+  <span class="text-sky-300">arc</span>(<span class="text-purple-300">160</span>, <span class="text-purple-300">200</span>, <span class="text-purple-300">15</span>, <span class="text-purple-300">25</span>, <span class="text-purple-300">180</span>, <span class="text-purple-300">0</span>);
+  <span class="text-sky-300">arc</span>(<span class="text-purple-300">136</span>, <span class="text-purple-300">226</span>, <span class="text-purple-300">40</span>, <span class="text-purple-300">10</span>, <span class="text-purple-300">0</span>, <span class="text-purple-300">180</span>);
+
+  <span class="text-slate-500 italic">// Angry Face</span>
+  <span class="text-sky-300">noStroke</span>();
+  <span class="text-sky-300">fill</span>(<span class="text-purple-300">235</span>, <span class="text-purple-300">161</span>, <span class="text-purple-300">70</span>);
+  <span class="text-sky-300">ellipse</span>(<span class="text-purple-300">275</span>, <span class="text-purple-300">200</span>, <span class="text-purple-300">100</span>);
+  <span class="text-sky-300">strokeWeight</span>(<span class="text-purple-300">2</span>);
+  <span class="text-sky-300">stroke</span>(<span class="text-purple-300">0</span>);
+  <span class="text-sky-300">line</span>(<span class="text-purple-300">270</span>, <span class="text-purple-300">196</span>, <span class="text-purple-300">289</span>, <span class="text-purple-300">183</span>);
+  <span class="text-sky-300">line</span>(<span class="text-purple-300">254</span>, <span class="text-purple-300">196</span>, <span class="text-purple-300">237</span>, <span class="text-purple-300">188</span>);
+  <span class="text-sky-300">strokeWeight</span>(<span class="text-purple-300">1</span>);
+  <span class="text-sky-300">arc</span>(<span class="text-purple-300">284</span>, <span class="text-purple-300">200</span>, <span class="text-purple-300">25</span>, <span class="text-purple-300">25</span>, <span class="text-purple-300">0</span>, <span class="text-purple-300">180</span>);
+  <span class="text-sky-300">arc</span>(<span class="text-purple-300">261</span>, <span class="text-purple-300">232</span>, <span class="text-purple-300">20</span>, <span class="text-purple-300">40</span>, <span class="text-purple-300">180</span>, <span class="text-purple-300">0</span>);
+  <span class="text-sky-300">arc</span>(<span class="text-purple-300">245</span>, <span class="text-purple-300">200</span>, <span class="text-purple-300">15</span>, <span class="text-purple-300">25</span>, <span class="text-purple-300">0</span>, <span class="text-purple-300">180</span>);
+}
+
+<span class="text-slate-500 italic">// Write your custom functions down here!</span>
+</pre>
+      </div>
+    </section>
+
+    <!-- STEP 2: CODE ALONG REFERENCE -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+      <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex items-center gap-3">
+        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-400 font-bold font-display">2</span>
+        <h2 class="text-lg font-bold text-slate-100 font-display">Code Along (Happy Face)</h2>
+      </div>
+      
+      <div class="p-6 md:p-8 space-y-8">
+        <p class="text-slate-300 text-[17px] leading-relaxed">
+          Follow along with the teacher on the projector. If you get lost, use this reference to catch up!
+        </p>
+
+        <!-- Phase A: The Overlap Problem -->
+        <div>
+          <h3 class="text-emerald-400 font-bold mb-2 font-display text-lg border-b border-slate-700 pb-2">Phase A: The Overlap Problem</h3>
+          <p class="text-slate-400 text-sm mb-4 leading-relaxed">If we just move the raw code into an empty function, it gets stuck in one place. If we call it multiple times, the faces just stack directly on top of each other!</p>
+          
+          <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 font-mono-code text-sm text-slate-300 overflow-x-auto">
+            <div><span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">happyFace</span>() {</div>
+            <div class="pl-4 text-slate-500 italic">// 1. Hardcoded numbers mean it can never move.</div>
+            <div class="pl-4"><span class="text-sky-300">ellipse</span>(<span class="text-rose-400 font-bold">125</span>, <span class="text-rose-400 font-bold">200</span>, <span class="text-purple-300">100</span>);</div>
+            <div class="pl-4"><span class="text-sky-300">arc</span>(<span class="text-rose-400 font-bold">110</span>, <span class="text-rose-400 font-bold">200</span>, <span class="text-purple-300">25</span>, <span class="text-purple-300">25</span>, <span class="text-purple-300">180</span>, <span class="text-purple-300">0</span>);</div>
+            <div class="pl-4 text-slate-500 italic">// ... other shapes ...</div>
+            <div>}</div>
+          </div>
+        </div>
+
+        <!-- Phase B: The Parameter Fix -->
+        <div>
+          <h3 class="text-emerald-400 font-bold mb-2 font-display text-lg border-b border-slate-700 pb-2">Phase B: Parameters &amp; Relative Math</h3>
+          <p class="text-slate-400 text-sm mb-4 leading-relaxed">We add <strong class="text-emerald-400">xPos</strong> and <strong class="text-emerald-400">yPos</strong> parameters to give the head an anchor. Then we use <strong class="text-sky-300">Relative Math</strong> (+ or -) to glue the eyes and mouth to the moving head.</p>
+
+          <div class="bg-slate-950 border border-slate-800 rounded-xl p-5 font-mono-code text-sm text-slate-300 overflow-x-auto">
+            <div class="text-slate-500 italic mb-2">// 1. Define the function with parameters (OUTSIDE draw)</div>
+            <div><span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">happyFace</span>(<span class="text-emerald-400 font-bold">xPos</span>, <span class="text-emerald-400 font-bold">yPos</span>) {</div>
+            <div class="pl-4"><span class="text-sky-300">strokeWeight</span>(<span class="text-purple-300">1</span>);</div>
+            <div class="pl-4"><span class="text-sky-300">stroke</span>(<span class="text-purple-300">0</span>);</div>
+            <div class="pl-4"><span class="text-sky-300">fill</span>(<span class="text-purple-300">169</span>, <span class="text-purple-300">222</span>, <span class="text-purple-300">183</span>);</div>
+            <br>
+            <div class="pl-4 text-slate-500 italic">// 2. Set the Base Anchor</div>
+            <div class="pl-4"><span class="text-sky-300">ellipse</span>(<span class="text-emerald-400 font-bold">xPos</span>, <span class="text-emerald-400 font-bold">yPos</span>, <span class="text-purple-300">100</span>);</div>
+            <br>
+            <div class="pl-4 text-slate-500 italic">// 3. Use Relative Math (+ or -) for the facial details</div>
+            <div class="pl-4"><span class="text-sky-300">arc</span>(<span class="text-rose-400 font-bold">xPos - 15</span>, <span class="text-emerald-400 font-bold">yPos</span>, <span class="text-purple-300">25</span>, <span class="text-purple-300">25</span>, <span class="text-purple-300">180</span>, <span class="text-purple-300">0</span>);</div>
+            <div class="pl-4"><span class="text-sky-300">arc</span>(<span class="text-rose-400 font-bold">xPos + 35</span>, <span class="text-emerald-400 font-bold">yPos</span>, <span class="text-purple-300">15</span>, <span class="text-purple-300">25</span>, <span class="text-purple-300">180</span>, <span class="text-purple-300">0</span>);</div>
+            <div class="pl-4"><span class="text-sky-300">arc</span>(<span class="text-rose-400 font-bold">xPos + 11</span>, <span class="text-rose-400 font-bold">yPos + 26</span>, <span class="text-purple-300">40</span>, <span class="text-purple-300">10</span>, <span class="text-purple-300">0</span>, <span class="text-purple-300">180</span>);</div>
+            <div>}</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 3: INDEPENDENT PRACTICE -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+      <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex items-center gap-3">
+        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-purple-500/20 border border-purple-400 text-purple-400 font-bold font-display">3</span>
+        <h2 class="text-lg font-bold text-slate-100 font-display">Independent Practice: The Angry Face</h2>
+      </div>
+      
+      <div class="p-6 md:p-8 space-y-6">
+        <div class="bg-purple-500/10 border-l-4 border-purple-500 p-4 rounded-r-lg mb-6 text-purple-200">
+          <strong>Pair Programming:</strong> If you are working with a partner, swap the keyboard after every 2 or 3 lines of code! Share the math.
+        </div>
+
+        <p class="text-slate-300 text-[17px] leading-relaxed mb-6">
+          Your mission is to turn the <strong>Angry Face</strong> code into a parameterized stamp, just like we did with the Happy Face.
+        </p>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-5">
+            <h3 class="font-bold text-white mb-2 text-lg">1. Define</h3>
+            <p class="text-slate-400 text-sm">Create <code class="font-mono-code text-sky-300">angryFace(xPos, yPos)</code> at the bottom of your sketch.</p>
+          </div>
+          <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-5">
+            <h3 class="font-bold text-white mb-2 text-lg">2. Refactor</h3>
+            <p class="text-slate-400 text-sm">Cut the angry face shapes from <code class="font-mono-code text-sky-300">draw()</code> and replace fixed numbers with <code class="font-mono-code text-rose-300">xPos + offset</code>.</p>
+          </div>
+          <div class="bg-slate-800/50 border border-slate-700 rounded-xl p-5">
+            <h3 class="font-bold text-white mb-2 text-lg">3. Stamp</h3>
+            <p class="text-slate-400 text-sm">Call <code class="font-mono-code text-emerald-300">angryFace(300, 100);</code> at least 3 different times inside <code class="font-mono-code text-sky-300">draw()</code>!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- STEP 4: SUBMIT -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+      <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex items-center gap-3">
+        <span class="flex items-center justify-center w-8 h-8 rounded-full bg-amber-500/20 border border-amber-400 text-amber-400 font-bold font-display">4</span>
+        <h2 class="text-lg font-bold text-slate-100 font-display">Turn-In &amp; Exit Ticket</h2>
+      </div>
+      
+      <div class="p-6 md:p-8 space-y-6">
+        <div class="flex items-start gap-4">
+          <i class="fa-solid fa-link text-xl text-sky-400 mt-1"></i>
+          <div>
+            <h3 class="font-bold text-white text-lg mb-1">1. Submit Your Link</h3>
+            <p class="text-slate-400 leading-relaxed">Save your sketch in p5.js, click <strong class="text-slate-200">File > Share</strong>, copy the Edit link, and attach it to the Google Classroom assignment.</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-4 pt-4 border-t border-slate-800">
+          <i class="fa-regular fa-comment-dots text-xl text-emerald-400 mt-1"></i>
+          <div>
+            <h3 class="font-bold text-white text-lg mb-2">2. Answer the Private Comment</h3>
+            <p class="text-slate-400 leading-relaxed mb-3">Copy and paste this question into a private comment on Google Classroom, and answer it before clicking turn in:</p>
+            <div class="bg-slate-950 p-4 rounded-xl border border-slate-800 text-slate-300 font-mono-code text-sm space-y-3">
+              <p>Reflection: What was the most difficult or confusing part about replacing fixed numbers with relative math (like xPos - 15) today?</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    function copyCode() {
+      const rawCode = `function setup() {
+  createCanvas(400, 400);
+  angleMode(DEGREES);
+}
+
+function draw() {
+  background(220);
+  
+  // Helper: Shows mouse coordinates
+  text(mouseX + ", " + mouseY, 20, 20);
+
+  // Happy Face
+  strokeWeight(1);
+  stroke(0);
+  fill(169, 222, 183);
+  ellipse(125, 200, 100);
+  arc(110, 200, 25, 25, 180, 0);
+  arc(160, 200, 15, 25, 180, 0);
+  arc(136, 226, 40, 10, 0, 180);
+
+  // Angry Face
+  noStroke();
+  fill(235, 161, 70);
+  ellipse(275, 200, 100);
+  strokeWeight(2);
+  stroke(0);
+  line(270, 196, 289, 183);
+  line(254, 196, 237, 188);
+  strokeWeight(1);
+  arc(284, 200, 25, 25, 0, 180);
+  arc(261, 232, 20, 40, 180, 0);
+  arc(245, 200, 15, 25, 0, 180);
+}
+
+// Write your custom functions down here!
+`;
+
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = rawCode;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextArea);
+
+      const btn = document.getElementById('copyBtn');
+      const text = document.getElementById('copyText');
+      
+      btn.classList.remove('bg-slate-800', 'text-sky-300', 'border-slate-700');
+      btn.classList.add('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/50');
+      text.textContent = "Copied!";
+      
+      setTimeout(() => {
+        btn.classList.add('bg-slate-800', 'text-sky-300', 'border-slate-700');
+        btn.classList.remove('bg-emerald-500/20', 'text-emerald-400', 'border-emerald-500/50');
+        text.textContent = "Copy to Clipboard";
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
