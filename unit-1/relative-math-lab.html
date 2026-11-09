@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>U1LA4.2.5 Lab: Relative Math</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+    .font-display { font-family: 'Space Grotesk', sans-serif; }
+    .font-mono-code { font-family: 'Fira Code', monospace; }
+    
+    pre::-webkit-scrollbar { width: 8px; height: 8px; }
+    pre::-webkit-scrollbar-track { background: #020617; border-radius: 4px; }
+    pre::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    pre::-webkit-scrollbar-thumb:hover { background: #475569; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-sky-500/30">
+
+  <!-- HEADER -->
+  <header class="bg-slate-900 border-b border-slate-800 px-6 py-5 sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-sky-500 flex items-center justify-center text-slate-950 font-bold text-2xl shadow-lg shadow-sky-500/20">
+          <i class="fa-solid fa-crosshairs"></i>
+        </div>
+        <div>
+          <div class="text-xs font-bold uppercase tracking-widest text-sky-400 font-display mb-1">
+            Gotham Tech High School • p5.js Studio
+          </div>
+          <h1 class="text-xl md:text-2xl font-bold tracking-tight font-display text-white">
+            U1LA4.2.5: The Offset Sandbox
+          </h1>
+        </div>
+      </div>
+      <a href="https://editor.p5js.org/" target="_blank" rel="noopener noreferrer" 
+         class="bg-rose-500 hover:bg-rose-400 text-white text-sm font-bold px-4 py-2.5 rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-rose-500/20 whitespace-nowrap">
+        Open p5.js Editor <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
+    
+    <div class="bg-slate-800/50 border border-sky-500/30 rounded-xl p-5 mb-8 text-sky-100 flex items-start gap-4">
+        <i class="fa-solid fa-circle-info text-sky-400 text-xl mt-0.5"></i>
+        <div>
+            <h3 class="font-bold text-sky-300 mb-1">Ping-Pong Workflow</h3>
+            <p class="text-sm text-sky-200/80">Calculate the math on your paper worksheet first. Once your teacher checks it, copy the starter code below into p5.js, replace the <code class="bg-slate-900 px-1 py-0.5 rounded text-sky-300">___</code> with your math offsets, and verify your drawing follows the mouse!</p>
+        </div>
+    </div>
+
+    <!-- PART 1: THE GHOST -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+      <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-sky-500/20 border border-sky-400 text-sky-400 font-bold font-display">1</span>
+          <h2 class="text-lg font-bold text-slate-100 font-display">Part 1: The Ghost (We Do)</h2>
+        </div>
+        <button onclick="copyCode('code1', 'btn1')" id="btn1" class="bg-slate-800 hover:bg-slate-700 text-sky-300 font-mono-code text-sm font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors border border-slate-700">
+          <i class="fa-regular fa-copy"></i> <span>Copy Code</span>
+        </button>
+      </div>
+      
+      <div class="p-0 relative">
+        <pre id="code1" class="p-6 font-mono-code text-sm sm:text-[15px] leading-relaxed text-slate-300 overflow-x-auto"><span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">setup</span>() {
+  <span class="text-sky-300">createCanvas</span>(<span class="text-purple-300">400</span>, <span class="text-purple-300">400</span>);
+}
+
+<span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">draw</span>() {
+  <span class="text-sky-300">background</span>(<span class="text-purple-300">30</span>);
+  
+  <span class="text-slate-500 italic">// 1. The Mouse Anchor</span>
+  <span class="text-sky-400 font-bold">let</span> <span class="text-emerald-300">anchorX</span> = <span class="text-purple-300">mouseX</span>;
+  <span class="text-sky-400 font-bold">let</span> <span class="text-emerald-300">anchorY</span> = <span class="text-purple-300">mouseY</span>;
+
+  <span class="text-slate-500 italic">// 2. The Body (Anchor)</span>
+  <span class="text-sky-300">fill</span>(<span class="text-purple-300">255</span>);
+  <span class="text-sky-300">ellipse</span>(<span class="text-emerald-300">anchorX</span>, <span class="text-emerald-300">anchorY</span>, <span class="text-purple-300">100</span>, <span class="text-purple-300">120</span>);
+
+  <span class="text-slate-500 italic">// 3. The Eyes (Plug in your worksheet offsets!)</span>
+  <span class="text-sky-300">fill</span>(<span class="text-purple-300">0</span>);
+  <span class="text-sky-300">ellipse</span>(<span class="text-emerald-300">anchorX</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-emerald-300">anchorY</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-purple-300">15</span>, <span class="text-purple-300">15</span>); <span class="text-slate-500 italic">// Left Eye</span>
+  <span class="text-sky-300">ellipse</span>(<span class="text-emerald-300">anchorX</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-emerald-300">anchorY</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-purple-300">15</span>, <span class="text-purple-300">15</span>); <span class="text-slate-500 italic">// Right Eye</span>
+}
+</pre>
+      </div>
+    </section>
+
+    <!-- PART 2: THE ALIEN -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+        <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-400 font-bold font-display">2</span>
+            <h2 class="text-lg font-bold text-slate-100 font-display">Part 2: The Alien (You Do)</h2>
+          </div>
+          <button onclick="copyCode('code2', 'btn2')" id="btn2" class="bg-slate-800 hover:bg-slate-700 text-sky-300 font-mono-code text-sm font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors border border-slate-700">
+            <i class="fa-regular fa-copy"></i> <span>Copy Code</span>
+          </button>
+        </div>
+        
+        <div class="p-0 relative">
+          <pre id="code2" class="p-6 font-mono-code text-sm sm:text-[15px] leading-relaxed text-slate-300 overflow-x-auto"><span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">setup</span>() {
+  <span class="text-sky-300">createCanvas</span>(<span class="text-purple-300">400</span>, <span class="text-purple-300">400</span>);
+}
+
+<span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">draw</span>() {
+  <span class="text-sky-300">background</span>(<span class="text-purple-300">30</span>);
+  
+  <span class="text-slate-500 italic">// 1. The Mouse Anchor</span>
+  <span class="text-sky-400 font-bold">let</span> <span class="text-emerald-300">anchorX</span> = <span class="text-purple-300">mouseX</span>;
+  <span class="text-sky-400 font-bold">let</span> <span class="text-emerald-300">anchorY</span> = <span class="text-purple-300">mouseY</span>;
+
+  <span class="text-slate-500 italic">// 2. Head & Antennas base (Anchor)</span>
+  <span class="text-sky-300">stroke</span>(<span class="text-purple-300">255</span>);
+  <span class="text-sky-300">strokeWeight</span>(<span class="text-purple-300">4</span>);
+  
+  <span class="text-slate-500 italic">// 3. Lines connecting antennas (Plug in offsets here too!)</span>
+  <span class="text-sky-300">line</span>(<span class="text-emerald-300">anchorX</span>, <span class="text-emerald-300">anchorY</span>, <span class="text-emerald-300">anchorX</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-emerald-300">anchorY</span> <span class="text-rose-400 font-bold">___</span>); <span class="text-slate-500 italic">// Left line</span>
+  <span class="text-sky-300">line</span>(<span class="text-emerald-300">anchorX</span>, <span class="text-emerald-300">anchorY</span>, <span class="text-emerald-300">anchorX</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-emerald-300">anchorY</span> <span class="text-rose-400 font-bold">___</span>); <span class="text-slate-500 italic">// Right line</span>
+
+  <span class="text-sky-300">fill</span>(<span class="text-purple-300">100</span>, <span class="text-purple-300">255</span>, <span class="text-purple-300">100</span>);
+  <span class="text-sky-300">noStroke</span>();
+  <span class="text-sky-300">ellipse</span>(<span class="text-emerald-300">anchorX</span>, <span class="text-emerald-300">anchorY</span>, <span class="text-purple-300">80</span>, <span class="text-purple-300">80</span>); <span class="text-slate-500 italic">// The Head</span>
+
+  <span class="text-slate-500 italic">// 4. The Antenna Balls (Plug in your worksheet offsets!)</span>
+  <span class="text-sky-300">ellipse</span>(<span class="text-emerald-300">anchorX</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-emerald-300">anchorY</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-purple-300">20</span>, <span class="text-purple-300">20</span>); <span class="text-slate-500 italic">// Left Antenna</span>
+  <span class="text-sky-300">ellipse</span>(<span class="text-emerald-300">anchorX</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-emerald-300">anchorY</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-purple-300">20</span>, <span class="text-purple-300">20</span>); <span class="text-slate-500 italic">// Right Antenna</span>
+}
+</pre>
+        </div>
+      </section>
+
+      <!-- PART 3: THE ROBOT -->
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+        <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-purple-500/20 border border-purple-400 text-purple-400 font-bold font-display">3</span>
+            <h2 class="text-lg font-bold text-slate-100 font-display">Part 3: The Robot (No Guard Rails)</h2>
+          </div>
+          <button onclick="copyCode('code3', 'btn3')" id="btn3" class="bg-slate-800 hover:bg-slate-700 text-sky-300 font-mono-code text-sm font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors border border-slate-700">
+            <i class="fa-regular fa-copy"></i> <span>Copy Code</span>
+          </button>
+        </div>
+        
+        <div class="p-0 relative">
+          <pre id="code3" class="p-6 font-mono-code text-sm sm:text-[15px] leading-relaxed text-slate-300 overflow-x-auto"><span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">setup</span>() {
+  <span class="text-sky-300">createCanvas</span>(<span class="text-purple-300">400</span>, <span class="text-purple-300">400</span>);
+  <span class="text-sky-300">rectMode</span>(<span class="text-purple-300">CENTER</span>); <span class="text-slate-500 italic">// This makes the rectangle anchor from the middle!</span>
+}
+
+<span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">draw</span>() {
+  <span class="text-sky-300">background</span>(<span class="text-purple-300">30</span>);
+  
+  <span class="text-slate-500 italic">// 1. The Mouse Anchor</span>
+  <span class="text-sky-400 font-bold">let</span> <span class="text-emerald-300">anchorX</span> = <span class="text-purple-300">mouseX</span>;
+  <span class="text-sky-400 font-bold">let</span> <span class="text-emerald-300">anchorY</span> = <span class="text-purple-300">mouseY</span>;
+
+  <span class="text-slate-500 italic">// 2. The Features (Wheels & Eyes)</span>
+  <span class="text-sky-300">fill</span>(<span class="text-purple-300">100</span>);
+  <span class="text-sky-300">rect</span>(<span class="text-emerald-300">anchorX</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-emerald-300">anchorY</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-purple-300">30</span>, <span class="text-purple-300">40</span>); <span class="text-slate-500 italic">// Left Wheel</span>
+  <span class="text-sky-300">rect</span>(<span class="text-emerald-300">anchorX</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-emerald-300">anchorY</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-purple-300">30</span>, <span class="text-purple-300">40</span>); <span class="text-slate-500 italic">// Right Wheel</span>
+
+  <span class="text-slate-500 italic">// 3. The Body (Anchor)</span>
+  <span class="text-sky-300">fill</span>(<span class="text-purple-300">200</span>, <span class="text-purple-300">200</span>, <span class="text-purple-300">250</span>);
+  <span class="text-sky-300">rect</span>(<span class="text-emerald-300">anchorX</span>, <span class="text-emerald-300">anchorY</span>, <span class="text-purple-300">120</span>, <span class="text-purple-300">120</span>);
+
+  <span class="text-slate-500 italic">// 4. The Eyes</span>
+  <span class="text-sky-300">fill</span>(<span class="text-purple-300">255</span>, <span class="text-purple-300">0</span>, <span class="text-purple-300">0</span>);
+  <span class="text-sky-300">ellipse</span>(<span class="text-emerald-300">anchorX</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-emerald-300">anchorY</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-purple-300">20</span>, <span class="text-purple-300">20</span>); <span class="text-slate-500 italic">// Left Eye</span>
+  <span class="text-sky-300">ellipse</span>(<span class="text-emerald-300">anchorX</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-emerald-300">anchorY</span> <span class="text-rose-400 font-bold">___</span>, <span class="text-purple-300">20</span>, <span class="text-purple-300">20</span>); <span class="text-slate-500 italic">// Right Eye</span>
+}
+</pre>
+        </div>
+      </section>
+
+  </main>
+
+  <script>
+    function copyCode(codeId, btnId) {
+      const preBlock = document.getElementById(codeId);
+      // Get raw text from the block, making sure to keep the ___ placeholders
+      let rawCode = preBlock.innerText;
+      
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = rawCode;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextArea);
+
+      const btn = document.getElementById(btnId);
+      const span = btn.querySelector('span');
+      
+      const originalClass = btn.className;
+      btn.className = "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 font-mono-code text-sm font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors";
+      span.textContent = "Copied!";
+      
+      setTimeout(() => {
+        btn.className = originalClass;
+        span.textContent = "Copy Code";
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
