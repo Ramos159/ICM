@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>U1LA4.4a Lab: Code Autopsy</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@600;700&display=swap">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: #0f172a;
+      color: #f8fafc;
+    }
+    .font-display { font-family: 'Space Grotesk', sans-serif; }
+    .font-mono-code { font-family: 'Fira Code', monospace; }
+    
+    pre::-webkit-scrollbar { width: 8px; height: 8px; }
+    pre::-webkit-scrollbar-track { background: #020617; border-radius: 4px; }
+    pre::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+    pre::-webkit-scrollbar-thumb:hover { background: #475569; }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col selection:bg-sky-500/30">
+
+  <!-- HEADER -->
+  <header class="bg-slate-900 border-b border-slate-800 px-6 py-5 sticky top-0 z-50">
+    <div class="max-w-5xl mx-auto flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div class="flex items-center gap-4">
+        <div class="w-12 h-12 rounded-xl bg-rose-500 flex items-center justify-center text-slate-950 font-bold text-2xl shadow-lg shadow-rose-500/20">
+          <i class="fa-solid fa-stethoscope"></i>
+        </div>
+        <div>
+          <div class="text-xs font-bold uppercase tracking-widest text-rose-400 font-display mb-1">
+            Gotham Tech High School • p5.js Studio
+          </div>
+          <h1 class="text-xl md:text-2xl font-bold tracking-tight font-display text-white">
+            U1LA4.4a: The Code Autopsy
+          </h1>
+        </div>
+      </div>
+      <a href="https://editor.p5js.org/" target="_blank" rel="noopener noreferrer" 
+         class="bg-sky-500 hover:bg-sky-400 text-slate-900 text-sm font-bold px-4 py-2.5 rounded-lg flex items-center gap-2 transition-colors shadow-lg shadow-sky-500/20 whitespace-nowrap">
+        Open p5.js Editor <i class="fa-solid fa-arrow-up-right-from-square"></i>
+      </a>
+    </div>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main class="flex-grow max-w-5xl w-full mx-auto px-4 sm:px-6 py-8 space-y-8">
+    
+    <div class="bg-slate-800/50 border border-rose-500/30 rounded-xl p-5 mb-8 text-rose-100 flex items-start gap-4">
+        <i class="fa-solid fa-triangle-exclamation text-rose-400 text-xl mt-0.5"></i>
+        <div>
+            <h3 class="font-bold text-rose-300 mb-1">Ping-Pong Rules: Do Not Type Yet!</h3>
+            <p class="text-sm text-rose-200/80">Copy the code, hit play, and <strong>read the red console error</strong>. Write your hypothesis on your paper worksheet BEFORE you attempt to fix the code.</p>
+        </div>
+    </div>
+
+    <!-- BUG 1 -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+      <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <span class="flex items-center justify-center w-8 h-8 rounded-full bg-blue-500/20 border border-blue-400 text-blue-400 font-bold font-display">1</span>
+          <h2 class="text-lg font-bold text-slate-100 font-display">Bug 1: The Missing Bracket (We Do)</h2>
+        </div>
+        <button onclick="copyCode('code1', 'btn1')" id="btn1" class="bg-slate-800 hover:bg-slate-700 text-sky-300 font-mono-code text-sm font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors border border-slate-700">
+          <i class="fa-regular fa-copy"></i> <span>Copy Code</span>
+        </button>
+      </div>
+      
+      <div class="p-0 relative">
+        <pre id="code1" class="p-6 font-mono-code text-sm sm:text-[15px] leading-relaxed text-slate-300 overflow-x-auto"><span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">setup</span>() {
+  <span class="text-sky-300">createCanvas</span>(<span class="text-purple-300">400</span>, <span class="text-purple-300">400</span>);
+}
+
+<span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">draw</span>() {
+  <span class="text-sky-300">background</span>(<span class="text-purple-300">220</span>);
+  <span class="text-sky-300">fill</span>(<span class="text-purple-300">255</span>, <span class="text-purple-300">0</span>, <span class="text-purple-300">0</span>);
+  <span class="text-sky-300">rect</span>(<span class="text-purple-300">100</span>, <span class="text-purple-300">100</span>, <span class="text-purple-300">200</span>, <span class="text-purple-300">200</span>);
+  
+<span class="text-slate-500 italic">// Why won't it draw the square? Look at the console!</span>
+</pre>
+      </div>
+    </section>
+
+    <!-- BUG 2 -->
+    <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+        <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-emerald-500/20 border border-emerald-400 text-emerald-400 font-bold font-display">2</span>
+            <h2 class="text-lg font-bold text-slate-100 font-display">Bug 2: CamelCase Catastrophe (Pairs)</h2>
+          </div>
+          <button onclick="copyCode('code2', 'btn2')" id="btn2" class="bg-slate-800 hover:bg-slate-700 text-sky-300 font-mono-code text-sm font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors border border-slate-700">
+            <i class="fa-regular fa-copy"></i> <span>Copy Code</span>
+          </button>
+        </div>
+        
+        <div class="p-0 relative">
+          <pre id="code2" class="p-6 font-mono-code text-sm sm:text-[15px] leading-relaxed text-slate-300 overflow-x-auto"><span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">setup</span>() {
+  <span class="text-sky-300">createCanvas</span>(<span class="text-purple-300">400</span>, <span class="text-purple-300">400</span>);
+}
+
+<span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">draw</span>() {
+  <span class="text-rose-400 font-bold">Background</span>(<span class="text-purple-300">30</span>);
+  <span class="text-sky-300">fill</span>(<span class="text-purple-300">0</span>, <span class="text-purple-300">255</span>, <span class="text-purple-300">0</span>);
+  <span class="text-sky-300">ellipse</span>(<span class="text-purple-300">200</span>, <span class="text-purple-300">200</span>, <span class="text-purple-300">100</span>, <span class="text-purple-300">100</span>);
+}
+</pre>
+        </div>
+      </section>
+
+      <!-- BUG 3 -->
+      <section class="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl">
+        <div class="bg-slate-950 px-5 py-4 border-b border-slate-800 flex flex-wrap items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-purple-500/20 border border-purple-400 text-purple-400 font-bold font-display">3</span>
+            <h2 class="text-lg font-bold text-slate-100 font-display">Bug 3: The Typo Terror (Independent)</h2>
+          </div>
+          <button onclick="copyCode('code3', 'btn3')" id="btn3" class="bg-slate-800 hover:bg-slate-700 text-sky-300 font-mono-code text-sm font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors border border-slate-700">
+            <i class="fa-regular fa-copy"></i> <span>Copy Code</span>
+          </button>
+        </div>
+        
+        <div class="p-0 relative">
+          <pre id="code3" class="p-6 font-mono-code text-sm sm:text-[15px] leading-relaxed text-slate-300 overflow-x-auto"><span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">setup</span>() {
+  <span class="text-sky-300">createCanvas</span>(<span class="text-purple-300">400</span>, <span class="text-purple-300">400</span>);
+}
+
+<span class="text-sky-400 font-bold">function</span> <span class="text-amber-300">draw</span>() {
+  <span class="text-sky-300">background</span>(<span class="text-purple-300">220</span>);
+  <span class="text-sky-300">fill</span>(<span class="text-purple-300">0</span>, <span class="text-purple-300">100</span>, <span class="text-purple-300">255</span>);
+  <span class="text-rose-400 font-bold">rectangl</span>(<span class="text-purple-300">150</span>, <span class="text-purple-300">150</span>, <span class="text-purple-300">100</span>, <span class="text-purple-300">100</span>);
+}
+</pre>
+        </div>
+      </section>
+
+  </main>
+
+  <script>
+    function copyCode(codeId, btnId) {
+      const preBlock = document.getElementById(codeId);
+      let rawCode = preBlock.innerText;
+      
+      const tempTextArea = document.createElement('textarea');
+      tempTextArea.value = rawCode;
+      document.body.appendChild(tempTextArea);
+      tempTextArea.select();
+      document.execCommand('copy');
+      document.body.removeChild(tempTextArea);
+
+      const btn = document.getElementById(btnId);
+      const span = btn.querySelector('span');
+      
+      const originalClass = btn.className;
+      btn.className = "bg-emerald-500/20 text-emerald-400 border border-emerald-500/50 font-mono-code text-sm font-bold px-4 py-2 rounded-lg flex items-center gap-2 transition-colors";
+      span.textContent = "Copied!";
+      
+      setTimeout(() => {
+        btn.className = originalClass;
+        span.textContent = "Copy Code";
+      }, 2500);
+    }
+  </script>
+</body>
+</html>
